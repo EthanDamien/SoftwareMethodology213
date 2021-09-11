@@ -17,9 +17,17 @@ public class Date implements Comparable<Date> {
 
     
     public Date(String date) {
-
+        month = Integer.parseInt(date.substring(0,2));
+        day = Integer.parseInt(date.substring(3,5));
+        year = Integer.parseInt(date.substring(6,10));
     } //take “mm/dd/yyyy” and create a Date object
-    public Date() {} //create an object with today’s date (see Calendar class)
+
+    public Date() {
+        Calendar currentDate = Calendar.getInstance();
+        month = currentDate.get(Calendar.MONTH);
+        day = currentDate.get(Calendar.DAY_OF_MONTH);
+        year = currentDate.get(Calendar.YEAR);
+    } //create an object with today’s date (see Calendar class)
 
     public boolean isValid() {
         if(month < MIN_MONTH || month > MAX_MONTH || day < MIN_DAYS || day > MAX_DAYS || year < THE_EIGHTYS || year > Calendar.getInstance().get(Calendar.YEAR)){
@@ -53,8 +61,30 @@ public class Date implements Comparable<Date> {
         return false;
     }
 
+    // 1 -> older
+    // -1 -> younger
+    // 0 -> equal
     @Override
     public int compareTo(Date date) {
+        if(year > date.getYear()) return -1;
+        if(year == date.getYear()){
+            if(month > date.getMonth()) return -1;
+            if(month == date.getMonth()){
+                if(day > date.getDay()) return -1;
+                if(day == date.getDay()) return 0;
+            }
+        }
         return 1;
+    }
+
+    public int getDay(){
+        return day;
+    }
+
+    public int getMonth(){
+        return month;
+    }
+    public int getYear(){
+        return year;
     }
 }
