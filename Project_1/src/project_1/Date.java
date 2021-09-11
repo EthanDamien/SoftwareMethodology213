@@ -1,26 +1,55 @@
 package project_1;
 
+import java.util.Calendar;
+
 public class Date implements Comparable<Date> {
     private int year;
     private int month;
     private int day;
-    private final int JANUARY = 1;
-    private final int FEBRUARY = 2;
-    private final int MARCH = 3;
-    private final int APRIL = 4;
-    private final int MAY = 5;
-    private final int JUNE = 6;
-    private final int JULY = 7;
-    private final int AUGUST = 8;
-    private final int SEPTEMBER = 9;
-    private final int OCTOBER = 10;
-    private final int NOVEMBER = 11;
-    private final int DECEMBER = 12;
+    public static final int QUADRENNIAL = 4;
+    public static final int CENTENNIAL = 100;
+    public static final int QUATERCENTENNIAL = 400;
+    public static final int THE_EIGHTYS = 1980;
+    public static final int MIN_DAYS = 1;
+    public static final int MAX_DAYS = 31;
+    public static final int MAX_MONTH = 12;
+    public static final int MIN_MONTH = 1;
+
     
-    public Date(String date) {} //take “mm/dd/yyyy” and create a Date object
+    public Date(String date) {
+
+    } //take “mm/dd/yyyy” and create a Date object
     public Date() {} //create an object with today’s date (see Calendar class)
 
     public boolean isValid() {
+        if(month < MIN_MONTH || month > MAX_MONTH || day < MIN_DAYS || day > MAX_DAYS || year < THE_EIGHTYS || year > Calendar.getInstance().get(Calendar.YEAR)){
+            return false;
+        }
+        if(day <= MAX_DAYS - 3){
+            return true;
+        }
+        if(day == MAX_DAYS - 2){
+            if(month == Calendar.FEBRUARY){
+                if(year % QUADRENNIAL == 0){
+                    if(year % CENTENNIAL == 0){
+                        if(year % QUATERCENTENNIAL == 0){
+                            return true;
+                        }
+                        return false;
+                    }
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
+        if(day == MAX_DAYS - 1 && month != Calendar.FEBRUARY){
+            return true;
+        }
+        if(day == MAX_DAYS && (month != Calendar.APRIL && month != Calendar.NOVEMBER && month != Calendar.SEPTEMBER && month != Calendar.JUNE && month != Calendar.FEBRUARY)){
+            return true;
+        }
+
         return false;
     }
 
