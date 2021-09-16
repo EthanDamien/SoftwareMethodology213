@@ -1,5 +1,8 @@
 package project_1;
 
+/**
+ *
+ */
 public class Album {
     private String title;
     private String artist;
