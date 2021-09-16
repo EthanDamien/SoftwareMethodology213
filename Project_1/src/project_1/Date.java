@@ -15,6 +15,7 @@ public class Date implements Comparable<Date> {
     public static final int MAX_MONTH = 12;
     public static final int MIN_MONTH = 1;
 
+    //We need to add a testbed main
     
     public Date(String date) {
         month = Integer.parseInt(date.substring(0,2));

@@ -17,7 +17,8 @@ public class Collection {
         //Create new Albums array with 4 more entries
         Album[] newCollection = new Album[albums.length+4];
         //Copy old Album Array contents to new
-        System.arraycopy(albums, 0, newCollection, 0, numAlbums);
+        //OKAY WE CAN"T USE THIS
+//        System.arraycopy(albums, 0, newCollection, 0, numAlbums);
         albums = newCollection;
     } //increase the capacity of the array list by 4
 
@@ -50,14 +51,14 @@ public class Collection {
     public void printByReleaseDate() {
         //copy the Album to a new sorted Album list
         Album[] sortedAlbum = new Album[numAlbums];
-        System.arraycopy(albums, 0, sortedAlbum, 0, numAlbums);
+//        System.arraycopy(albums, 0, sortedAlbum, 0, numAlbums);
         //This is where we sort by Release Date
 
     }
 
     public void printByGenre() {
         Album[] sortedAlbum = new Album[numAlbums];
-        System.arraycopy(albums, 0, sortedAlbum, 0, numAlbums);
+//        System.arraycopy(albums, 0, sortedAlbum, 0, numAlbums);
         //This is where we sort by Genre
 
     }
