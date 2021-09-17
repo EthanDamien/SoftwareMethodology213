@@ -33,4 +33,20 @@ public class Genre {
         }
     }
 
+    @Override
+    public String toString(){
+        switch(genre){
+            case CLASSICAL:
+                return "Classical";
+            case COUNTRY:
+                return "Country";
+            case JAZZ:
+                return "Jazz";
+            case POP:
+                return "Pop";
+            default:
+                return "Unknown";
+        }
+    }
+
 }

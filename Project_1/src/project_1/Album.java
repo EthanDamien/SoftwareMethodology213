@@ -26,13 +26,30 @@ public class Album {
         return artist;
     }
 
+    public boolean getAvailable(){
+        return isAvailable;
+    }
+
+    public void setAvailable(){
+        isAvailable = !isAvailable;
+    }
+
     @Override
     public boolean equals(Object obj) {
-        return true;
+
+        if(obj == this){
+            return true;
+        }
+        if(!(obj instanceof  Album)){
+            return false;
+        }
+        Album comp = (Album) obj;
+        return title.equals(comp.getTitle()) && artist.equals(comp.getArtist());
     }
 
     @Override
     public String toString() {
-        return "test String";
+        return title + "::" + artist + "::"+ genre.toString() + "::" + releaseDate.toString() + "::"
+                + (isAvailable ? "is available" : "is not available");
     }
 }

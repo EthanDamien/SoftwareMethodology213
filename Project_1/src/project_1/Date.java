@@ -31,7 +31,8 @@ public class Date implements Comparable<Date> {
     } //create an object with today’s date (see Calendar class)
 
     public boolean isValid() {
-        if(month < MIN_MONTH || month > MAX_MONTH || day < MIN_DAYS || day > MAX_DAYS || year < THE_EIGHTYS || year > Calendar.getInstance().get(Calendar.YEAR)){
+        if(month < MIN_MONTH || month > MAX_MONTH || day < MIN_DAYS || day > MAX_DAYS || year < THE_EIGHTYS
+                || year > Calendar.getInstance().get(Calendar.YEAR)){
             return false;
         }
         if(day <= MAX_DAYS - 3){
@@ -55,7 +56,8 @@ public class Date implements Comparable<Date> {
         if(day == MAX_DAYS - 1 && month != Calendar.FEBRUARY){
             return true;
         }
-        if(day == MAX_DAYS && (month != Calendar.APRIL && month != Calendar.NOVEMBER && month != Calendar.SEPTEMBER && month != Calendar.JUNE && month != Calendar.FEBRUARY)){
+        if(day == MAX_DAYS && (month != Calendar.APRIL && month != Calendar.NOVEMBER && month != Calendar.SEPTEMBER
+                && month != Calendar.JUNE && month != Calendar.FEBRUARY)){
             return true;
         }
 
@@ -78,10 +80,13 @@ public class Date implements Comparable<Date> {
         return 1;
     }
 
+    @Override
+    public String toString(){
+        return (month < 10 ? "0" + month : month) + "/" + (day < 10 ? "0" + day : day) + "/" + year;
+    }
     public int getDay(){
         return day;
     }
-
     public int getMonth(){
         return month;
     }
