@@ -49,4 +49,13 @@ public class Genre {
         }
     }
 
+
+    public int compareTo(Genre gen){
+        return 0;
+    }
+
+    public GenreName getGenre(){
+        return genre;
+    }
+
 }

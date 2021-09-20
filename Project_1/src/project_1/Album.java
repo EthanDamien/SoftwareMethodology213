@@ -52,4 +52,8 @@ public class Album {
         return title + "::" + artist + "::"+ genre.toString() + "::" + releaseDate.toString() + "::"
                 + (isAvailable ? "is available" : "is not available");
     }
+
+    public Date getReleaseDate(){
+        return releaseDate;
+    }
 }
