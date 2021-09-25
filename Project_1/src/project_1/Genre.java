@@ -1,61 +1,32 @@
 package project_1;
 
-import java.util.Locale;
+/**
+ * An enum class for the different genres an Album can be categorized in.
+ * @author Ethan Chang, Kevin Cubillos
+ */
+public enum Genre {
 
-public class Genre {
+    Classical,
+    Country,
+    Jazz,
+    Pop,
+    Unknown
 
-    public enum GenreName{
-        CLASSICAL,
-        COUNTRY,
-        JAZZ,
-        POP,
-        UNKNOWN
-    }
+//    @Override
+//    public String toString(){
+//        switch(genre){
+//            case CLASSICAL:
+//                return "Classical";
+//            case COUNTRY:
+//                return "Country";
+//            case JAZZ:
+//                return "Jazz";
+//            case POP:
+//                return "Pop";
+//            default:
+//                return "Unknown";
+//        }
+//    }
 
-    private GenreName genre;
-
-    public Genre(String genre){
-        genre = genre.toUpperCase(Locale.ROOT);
-        if(genre == "CLASSICAL"){
-            this.genre = GenreName.CLASSICAL;
-        }
-        else if(genre == "COUNTRY"){
-            this.genre = GenreName.COUNTRY;
-        }
-        else if(genre == "JAZZ"){
-            this.genre = GenreName.JAZZ;
-        }
-        else if(genre == "POP"){
-            this.genre = GenreName.POP;
-        }
-        else{
-            this.genre = GenreName.UNKNOWN;
-        }
-    }
-
-    @Override
-    public String toString(){
-        switch(genre){
-            case CLASSICAL:
-                return "Classical";
-            case COUNTRY:
-                return "Country";
-            case JAZZ:
-                return "Jazz";
-            case POP:
-                return "Pop";
-            default:
-                return "Unknown";
-        }
-    }
-
-
-    public int compareTo(Genre gen){
-        return 0;
-    }
-
-    public GenreName getGenre(){
-        return genre;
-    }
 
 }

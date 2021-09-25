@@ -2,6 +2,10 @@ package project_1;
 
 import java.util.Calendar;
 
+/**
+ * The class that represents the release date of an album in the format: "MM/DD/YYYY"
+ * @author Ethan Damien, Kevin Cubillos
+ */
 public class Date implements Comparable<Date> {
     private int year;
     private int month;
@@ -16,13 +20,20 @@ public class Date implements Comparable<Date> {
     public static final int MIN_MONTH = 1;
 
     //We need to add a testbed main
-    
+
+    /**
+     * Constructor of Date that initializes the year, month, and day by the given date.
+     * @param date String of date in the format: "MM/DD/YYYY".
+     */
     public Date(String date) {
         month = Integer.parseInt(date.substring(0,2));
         day = Integer.parseInt(date.substring(3,5));
         year = Integer.parseInt(date.substring(6,10));
     } //take “mm/dd/yyyy” and create a Date object
 
+    /**
+     * Constructor of Date that initializes the year, month, and day by today's date.
+     */
     public Date() {
         Calendar currentDate = Calendar.getInstance();
         month = currentDate.get(Calendar.MONTH);
@@ -30,6 +41,11 @@ public class Date implements Comparable<Date> {
         year = currentDate.get(Calendar.YEAR);
     } //create an object with today’s date (see Calendar class)
 
+    /**
+     * Checks if date is a valid Calendar date.
+     * Excludes any dates from the eighties and before.
+     * @return true if date is valid, false otherwise.
+     */
     public boolean isValid() {
         if(month < MIN_MONTH || month > MAX_MONTH || day < MIN_DAYS || day > MAX_DAYS || year < THE_EIGHTYS
                 || year > Calendar.getInstance().get(Calendar.YEAR)){
@@ -64,9 +80,12 @@ public class Date implements Comparable<Date> {
         return false;
     }
 
-    // 1 -> older
-    // -1 -> younger
-    // 0 -> equal
+
+    /**
+     * Compares date to another date.
+     * @param date the date to be compared to
+     * @return -1 if older, 0 if equal, or 1 if younger
+     */
     @Override
     public int compareTo(Date date) {
         if(year > date.getYear()) return -1;
@@ -80,16 +99,35 @@ public class Date implements Comparable<Date> {
         return 1;
     }
 
+    /**
+     * Return string representation of date.
+     * @return A string in the format: "MM/DD/YYYY".
+     */
     @Override
     public String toString(){
         return (month < 10 ? "0" + month : month) + "/" + (day < 10 ? "0" + day : day) + "/" + year;
     }
+
+    /**
+     * Return the value of day.
+     * @return An int of day.
+     */
     public int getDay(){
         return day;
     }
+
+    /**
+     * Return the value of month.
+     * @return An int of month.
+     */
     public int getMonth(){
         return month;
     }
+
+    /**
+     * Return the value of year.
+     * @return An int of year.
+     */
     public int getYear(){
         return year;
     }
