@@ -67,7 +67,7 @@ public class CollectionManager {
                 printAlbums(input, 3);
                 break;
             default:
-                System.out.println("Error: Please enter a valid Command.");
+                System.out.println("Invalid command!");
                 break;
         }
         return true;
@@ -83,6 +83,10 @@ public class CollectionManager {
             return;
         }
         Album temp = new Album(input[1], input[2], input[3], input[4]);
+        if(!temp.getReleaseDate().isValid()){
+            System.out.println("Invalid Date!");
+            return;
+        }
         if(collection.add(temp)){
             System.out.println(temp.toString() + " >> added.");
         }
@@ -146,6 +150,10 @@ public class CollectionManager {
      * @param type 1 = no order, 2 = by Date, 3 = by Genre
      */
     public void printAlbums(String[] input, int type){
+        if(collection.size() == 0){
+            System.out.println("The collection is empty!");
+            return;
+        }
         switch(type){
             case 1:
                 System.out.println("*List of albums in the collection.");

@@ -269,4 +269,12 @@ public class Collection {
             }
         }
     }
+
+    /**
+     * Return the size of the album collection.
+     * @return number of albums
+     */
+    public int size(){
+        return numAlbums;
+    }
 }
