@@ -88,11 +88,12 @@ public class Collection {
      * @return true if album was lent out, false if album does not exist.
      */
     public boolean lendingOut(Album album) {
-        if(find(album) == NOT_FOUND){
+        int index = find(album);
+        if(index == NOT_FOUND){
             return false;
         }
-        if(album.getAvailable()){
-            album.setAvailable();
+        if(albums[index].getAvailable()){
+            albums[index].setAvailable();
         }
 
         return true;
@@ -104,15 +105,16 @@ public class Collection {
      * @return returns true if album is returned, false if album does not exist.
      */
     public boolean returnAlbum(Album album) {
-        if(find(album) == NOT_FOUND){
+        int index = find(album);
+        if(index == NOT_FOUND){
             return false;
         }
 
-        if(!album.getAvailable()){
-            album.setAvailable();
+        if(!albums[index].getAvailable()){
+            albums[index].setAvailable();
         }
         return true;
-    } //set to available
+    }
 
     /**
      * Prints all albums in collection in no particular order.
@@ -121,7 +123,7 @@ public class Collection {
         for(Album entry: albums){
             System.out.println(entry.toString());
         }
-    } //display the list without specifying the order
+    }
 
     /**
      * Prints all albums in collection in order of release dates.
@@ -130,15 +132,15 @@ public class Collection {
      */
     public void printByReleaseDate() {
         //copy the Album to a new sorted Album list
-        Album[] sortedAlbum = new Album[numAlbums];
+        Album[] sortedAlbums = new Album[numAlbums];
 
         for(int i = 0; i < numAlbums; i++){
-            sortedAlbum[i] = albums[i];
+            sortedAlbums[i] = albums[i];
         }
-        mergeSort(sortedAlbum, 0, numAlbums-1, 1);
+        mergeSort(sortedAlbums, 0, numAlbums-1, 1);
 
-        for(int i = 0; i < numAlbums; i++){
-            System.out.println(sortedAlbum[i].toString());
+        for(Album entry: sortedAlbums){
+            System.out.println(entry.toString());
         }
 
 
@@ -149,16 +151,16 @@ public class Collection {
      * Uses MergeSort to sort a copy of the collection.
      */
     public void printByGenre() {
-        Album[] sortedAlbum = new Album[numAlbums];
+        Album[] sortedAlbums = new Album[numAlbums];
 
         for(int i = 0; i < numAlbums; i++){
-            sortedAlbum[i] = albums[i];
+            sortedAlbums[i] = albums[i];
         }
         //This is where we sort by Genre
-        mergeSort(sortedAlbum, 0, numAlbums-1, 2);
+        mergeSort(sortedAlbums, 0, numAlbums-1, 2);
 
-        for(int i = 0; i < numAlbums; i++){
-            System.out.println(sortedAlbum[i].toString());
+        for(Album entry: sortedAlbums){
+            System.out.println(entry.toString());
         }
     }
 

@@ -17,6 +17,8 @@ import java.util.Scanner;
  */
 public class CollectionManager {
 
+    private Collection collection = new Collection();
+
     /** Runs a loop that takes in a certain amount of arguments, it can be terminated by entering Q into the
      * Command Line
      */
@@ -78,7 +80,16 @@ public class CollectionManager {
     public void addAlbum(String[] input){
         if(input.length != 5){
             System.out.println("Error: Please Enter a Valid number of arguments");
+            return;
         }
+        Album temp = new Album(input[1], input[2], input[3], input[4]);
+        if(collection.add(temp)){
+            System.out.println(temp.toString() + " >> added.");
+        }
+        else{
+            System.out.println(temp.toString() + " >> is already in the collection.");
+        }
+
     }
 
     /** This will Delete the Album from the Collection
@@ -89,15 +100,27 @@ public class CollectionManager {
         if(input.length != 3){
             System.out.println("Error: Please Enter a Valid number of arguments");
         }
+        else if(collection.remove(new Album(input[1], input[2]))){
+            System.out.println(input[1] + "::" + input[2] + " >> deleted.");
+        }
+        else{
+            System.out.println(input[1] + "::" + input[2] + " >> is not in the collection.");
+        }
     }
 
     /** This will Lend the Album from the Collection
      *
-     * @param input the input array Index 0 = Instruction, 1 = Name, 2 = Author, 3 = Genre, 4 = Date
+     * @param input the input array Index 0 = Instruction, 1 = Name, 2 = Author
      */
     public void lendAlbum(String[] input){
         if(input.length != 3){
             System.out.println("Error: Please Enter a Valid number of arguments");
+        }
+        else if(collection.lendingOut(new Album(input[1], input[2]))){
+            System.out.println(input[1] + "::" + input[2] + " >> lending out and set to not available.");
+        }
+        else{
+            System.out.println(input[1] + "::" + input[2] + " >> is not available.");
         }
     }
 
@@ -109,6 +132,12 @@ public class CollectionManager {
         if(input.length != 3){
             System.out.println("Error: Please Enter a Valid number of arguments");
         }
+        else if(collection.returnAlbum(new Album(input[1], input[2]))){
+            System.out.println(input[1] + "::" + input[2] + " >> returning and set to available.");
+        }
+        else{
+            System.out.println(input[1] + "::" + input[2] + " >> return could not be completed.");
+        }
     }
 
     /** This will Print the Albums in a certain order
@@ -119,13 +148,20 @@ public class CollectionManager {
     public void printAlbums(String[] input, int type){
         switch(type){
             case 1:
+                System.out.println("*List of albums in the collection.");
+                collection.print();
                 break;
             case 2:
+                System.out.println("*Album collection by the release dates.");
+                collection.printByReleaseDate();
                 break;
             case 3:
+                System.out.println("*Album collection by genre.");
+                collection.printByGenre();
                 break;
             default:
                 break;
         }
+        System.out.println("*End of list");
     }
 }

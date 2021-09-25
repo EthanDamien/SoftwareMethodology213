@@ -47,6 +47,21 @@ public class Album {
     }
 
     /**
+     * Constructor of Album mainly for comparison purposes.
+     * The release date is set to today's date by default.
+     * The genre is set to unknown by default.
+     * @param title the title of album
+     * @param artist the artist of album
+     */
+    public Album(String title, String artist){
+        this.title = title;
+        this.artist = artist;
+        this.releaseDate = new Date();
+        this.isAvailable = true;
+        this.genre = Genre.Unknown;
+    }
+
+    /**
      * Getter for title
      * @return title of album
      */
