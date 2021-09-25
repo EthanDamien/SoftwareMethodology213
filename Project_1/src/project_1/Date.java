@@ -26,9 +26,17 @@ public class Date implements Comparable<Date> {
      * @param date String of date in the format: "MM/DD/YYYY".
      */
     public Date(String date) {
-        month = Integer.parseInt(date.substring(0,2));
-        day = Integer.parseInt(date.substring(3,5));
-        year = Integer.parseInt(date.substring(6,10));
+        if(date.length() == 9){
+            month = Integer.parseInt(date.substring(0,1));
+            day = Integer.parseInt(date.substring(2,4));
+            year = Integer.parseInt(date.substring(5,9));
+        }
+        else{
+            month = Integer.parseInt(date.substring(0,2));
+            day = Integer.parseInt(date.substring(3,5));
+            year = Integer.parseInt(date.substring(6,10));
+        }
+
     } //take “mm/dd/yyyy” and create a Date object
 
     /**
