@@ -1,7 +1,8 @@
 package project_1;
 
+import java.io.IOException;
 import java.util.Scanner;
-
+import java.util.StringTokenizer;
 /**
  * This is the main running class that handles valid inputs and operations based on the requirements given in Project 1.
  * It takes in inputs with the format -> (Instruction, Album Name, Author, Genre, Date).
@@ -23,15 +24,21 @@ public class CollectionManager {
      * Command Line
      */
     public void run(){
+        System.out.println("Collection Manager starts running.");
         Scanner scan = new Scanner(System.in);
         String currString = null;
-        int loop = 1;
         boolean rerun = true;
         while(rerun){
-            System.out.println("Loop " + loop );
             currString = scan.nextLine();
-            String[] input = currString.split(",");
-            rerun = checkInstruction(input);
+            StringTokenizer st = new StringTokenizer(currString, ",");
+            String[] input = new String[st.countTokens()];
+            int i = 0;
+            while(st.hasMoreTokens()){
+                input[i] = st.nextToken();
+                i++;
+            }
+            if(input.length != 0)
+                rerun = checkInstruction(input);
         }
     }
 
@@ -79,7 +86,7 @@ public class CollectionManager {
      */
     public void addAlbum(String[] input){
         if(input.length != 5){
-            System.out.println("Error: Please Enter a Valid number of arguments");
+            System.out.println("Invalid Command!");
             return;
         }
         Album temp = new Album(input[1], input[2], input[3], input[4]);
@@ -87,11 +94,15 @@ public class CollectionManager {
             System.out.println("Invalid Date!");
             return;
         }
-        if(collection.add(temp)){
-            System.out.println(temp.toString() + " >> added.");
-        }
-        else{
-            System.out.println(temp.toString() + " >> is already in the collection.");
+        try {
+            if(collection.add(temp)) {
+                System.out.println(temp.toString() + " >> added.");
+            }
+            else{
+                System.out.println(temp.toString() + " >> is already in the collection.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -102,7 +113,7 @@ public class CollectionManager {
      */
     public void deleteAlbum(String[] input){
         if(input.length != 3){
-            System.out.println("Error: Please Enter a Valid number of arguments");
+            System.out.println("Invalid Command!");
         }
         else if(collection.remove(new Album(input[1], input[2]))){
             System.out.println(input[1] + "::" + input[2] + " >> deleted.");
@@ -118,7 +129,7 @@ public class CollectionManager {
      */
     public void lendAlbum(String[] input){
         if(input.length != 3){
-            System.out.println("Error: Please Enter a Valid number of arguments");
+            System.out.println("Invalid Command!");
         }
         else if(collection.lendingOut(new Album(input[1], input[2]))){
             System.out.println(input[1] + "::" + input[2] + " >> lending out and set to not available.");
@@ -134,7 +145,7 @@ public class CollectionManager {
      */
     public void returnAlbum(String[] input){
         if(input.length != 3){
-            System.out.println("Error: Please Enter a Valid number of arguments");
+            System.out.println("Invalid Command!");
         }
         else if(collection.returnAlbum(new Album(input[1], input[2]))){
             System.out.println(input[1] + "::" + input[2] + " >> returning and set to available.");

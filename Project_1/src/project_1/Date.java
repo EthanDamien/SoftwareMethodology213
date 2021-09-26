@@ -26,12 +26,17 @@ public class Date implements Comparable<Date> {
      * @param date String of date in the format: "MM/DD/YYYY".
      */
     public Date(String date) {
+        if(date.length() == 8){
+            month = Integer.parseInt(date.substring(0,1));
+            day = Integer.parseInt(date.substring(2,3));
+            year = Integer.parseInt(date.substring(4,8));
+        }
         if(date.length() == 9){
             month = Integer.parseInt(date.substring(0,1));
             day = Integer.parseInt(date.substring(2,4));
             year = Integer.parseInt(date.substring(5,9));
         }
-        else{
+        else if(date.length() == 10){
             month = Integer.parseInt(date.substring(0,2));
             day = Integer.parseInt(date.substring(3,5));
             year = Integer.parseInt(date.substring(6,10));
@@ -92,7 +97,7 @@ public class Date implements Comparable<Date> {
     /**
      * Compares date to another date.
      * @param date the date to be compared to
-     * @return -1 if older, 0 if equal, or 1 if younger
+     * @return 1 if older, 0 if equal, or -1 if younger
      */
     @Override
     public int compareTo(Date date) {

@@ -29,16 +29,17 @@ public class Album {
         this.isAvailable = true;
 
         genre = genre.toUpperCase();
-        if(genre == "CLASSICAL"){
+        System.out.println(genre);
+        if(genre.equals("CLASSICAL")){
             this.genre = Genre.Classical;
         }
-        else if(genre == "COUNTRY"){
+        else if(genre.equals("COUNTRY")){
             this.genre = Genre.Country;
         }
-        else if(genre == "JAZZ"){
+        else if(genre.equals("JAZZ")){
             this.genre = Genre.Jazz;
         }
-        else if(genre == "POP"){
+        else if(genre.equals("POP")){
             this.genre = Genre.Pop;
         }
         else{
@@ -140,7 +141,7 @@ public class Album {
             return false;
         }
         Album comp = (Album) obj;
-        return title.equals(comp.getTitle()) && artist.equals(comp.getArtist());
+        return this.title.equals(comp.getTitle()) && this.artist.equals(comp.getArtist());
     }
 
     /**

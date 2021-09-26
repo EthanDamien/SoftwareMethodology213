@@ -1,5 +1,7 @@
 package project_1;
 
+import java.io.IOException;
+
 /**
  * The class that represents a collection of albums with accompanying methods to update the collection.
  * @author Ethan Chang, Kevin Cubillos
@@ -23,7 +25,7 @@ public class Collection {
      * @return index of target album, NOT_FOUND (-1) otherwise
      */
     private int find(Album album) {
-        for(int i = 0; i < numAlbums - 1; i++){
+        for(int i = 0; i < numAlbums; i++){
             if(album.equals(albums[i])){
                 return i;
             }
@@ -36,8 +38,8 @@ public class Collection {
      * Increase the size of the collection by 4 whenever current capacity is reached.
      */
     private void grow() {
-        Album[] temp = new Album[numAlbums + 4];
-        for(int i  = 0; i < numAlbums - 1; i++){
+        Album[] temp = new Album[albums.length + 4];
+        for(int i  = 0; i < numAlbums; i++){
             temp[i] = albums[i];
         }
         albums = temp;
@@ -50,11 +52,11 @@ public class Collection {
      * @param album the album to be added.
      * @return true if album is added, false if album is already in collection.
      */
-    public boolean add(Album album) {
+    public boolean add(Album album) throws IOException {
         if(find(album) != NOT_FOUND){
             return false;
         }
-        if(numAlbums / albums.length == 1){
+        if(numAlbums + 1 == albums.length + 1){
             this.grow();
         }
         albums[numAlbums] = album;
@@ -69,13 +71,12 @@ public class Collection {
      * @return true if album was deleted, false if album does not exist.
      */
     public boolean remove(Album album) {
-
         int i = find(album);
         if(i == NOT_FOUND){
             return false;
         }
-        for(int j = i; i < numAlbums - 2; i++){
-            albums[i] = albums[i++];
+        for(int j = i; i < numAlbums - 1; i++){
+            albums[i] = albums[i+1];
         }
         albums[numAlbums-1] = null;
         numAlbums--;
@@ -94,9 +95,10 @@ public class Collection {
         }
         if(albums[index].getAvailable()){
             albums[index].setAvailable();
+            return true;
         }
 
-        return true;
+        return false;
     } //set to not available
 
     /**
@@ -110,18 +112,19 @@ public class Collection {
             return false;
         }
 
-        if(!albums[index].getAvailable()){
+        if(albums[index].getAvailable() == false){
             albums[index].setAvailable();
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
      * Prints all albums in collection in no particular order.
      */
     public void print() {
-        for(Album entry: albums){
-            System.out.println(entry.toString());
+        for(int i = 0; i < numAlbums; i++){
+            System.out.println(albums[i].toString());
         }
     }
 
@@ -132,15 +135,10 @@ public class Collection {
      */
     public void printByReleaseDate() {
         //copy the Album to a new sorted Album list
-        Album[] sortedAlbums = new Album[numAlbums];
+        mergeSort(albums, 0, numAlbums-1, 1);
 
         for(int i = 0; i < numAlbums; i++){
-            sortedAlbums[i] = albums[i];
-        }
-        mergeSort(sortedAlbums, 0, numAlbums-1, 1);
-
-        for(Album entry: sortedAlbums){
-            System.out.println(entry.toString());
+            System.out.println(albums[i].toString());
         }
 
 
@@ -151,22 +149,17 @@ public class Collection {
      * Uses MergeSort to sort a copy of the collection.
      */
     public void printByGenre() {
-        Album[] sortedAlbums = new Album[numAlbums];
+        //This is where we sort by Genre
+        mergeSort(albums, 0, numAlbums-1, 2);
 
         for(int i = 0; i < numAlbums; i++){
-            sortedAlbums[i] = albums[i];
-        }
-        //This is where we sort by Genre
-        mergeSort(sortedAlbums, 0, numAlbums-1, 2);
-
-        for(Album entry: sortedAlbums){
-            System.out.println(entry.toString());
+            System.out.println(albums[i].toString());
         }
     }
 
     /**
      * Merge Sort algorithm to sort collections based on order.
-     * @param temp copy of album collection to be sorted
+     * @param temp album collection to be sorted
      * @param l left index of current sub-array
      * @param r right index of current sub-array
      * @param order type of order for sort: 1 for release dates, 2 for genre
@@ -176,9 +169,10 @@ public class Collection {
             return;
         }
         int m = l + (r-l)/2;
+
+
         mergeSort(temp, l, m, order);
         mergeSort(temp,m + 1, r, order);
-
 
         // 1 for Date, 2 for Genre;
         if(order == 1){
@@ -191,83 +185,94 @@ public class Collection {
 
     /**
      * Merge Algorithm of MergeSort where release dates are compared.
-     * @param temp copy of album collection to be sorted
+     * @param temp album collection to be sorted
      * @param l left index of current sub-array
      * @param m middle index of current sub-array
      * @param r right index of current sub-array
      */
     private void mergeDate(Album[] temp, int l, int m, int r){
-        int leftP = l;
-        int rightP = m+1;
-        int i = 0;
-        while(i < r - l + 1){
-            int comp = albums[leftP].getReleaseDate().compareTo(albums[rightP].getReleaseDate());
-            if(comp == 1){
-                temp[i] = albums[rightP];
-                rightP++;
-            }
-            else{
-                temp[i] = albums[leftP];
+        int sizeL = m - l + 1;
+        int sizeR = r - m;
+
+        Album[] L = new Album[sizeL];
+        Album[] R = new Album[sizeR];
+        for(int i = 0; i < sizeL; i++){
+            L[i] = temp[l + i];
+        }
+        for(int i = 0; i < sizeR; i++){
+            R[i] = temp[m + i + 1];
+        }
+        int leftP = 0, rightP = 0, current = l;
+
+        while(leftP < sizeL && rightP < sizeR){
+            int comp = L[leftP].getReleaseDate().compareTo(R[rightP].getReleaseDate());
+            if(comp >= 0){
+                temp[current] = L[leftP];
                 leftP++;
             }
-
-            i++;
-            //When left subarray has been traversed
-            if(leftP > m){
-                for(int j = rightP; j <= r; j++){
-                    temp[j] = albums[j];
-                }
-                break;
+            else{
+                temp[current] = R[rightP];
+                rightP++;
             }
-            // When right subarray has been traversed
-            else if(rightP > r){
-                for(int j = leftP; j <= m; j++){
-                    temp[j] = albums[j];
-                }
-                break;
-            }
+            current++;
+        }
+        while(leftP < sizeL){
+            temp[current] = L[leftP];
+            leftP++;
+            current++;
+        }
+        while(rightP < sizeR){
+            temp[current] = R[rightP];
+            rightP++;
+            current++;
         }
     }
 
     /**
      * Merge Algorithm of MergeSort where genres are compared.
-     * @param temp copy of album collection to be sorted
+     * @param temp album collection to be sorted
      * @param l left index of current sub-array
      * @param m middle index of current sub-array
      * @param r right index of current sub-array
      */
     private void mergeGenre(Album[] temp, int l, int m, int r){
-        int leftP = l;
-        int rightP = m+1;
-        int i = 0;
-        while(i < r - l + 1){
-            int genreL = temp[leftP].genreOrder();
-            int genreR = temp[rightP].genreOrder();
+        int sizeL = m - l + 1;
+        int sizeR = r - m;
+
+        Album[] L = new Album[sizeL];
+        Album[] R = new Album[sizeR];
+        for(int i = 0; i < sizeL; i++){
+            L[i] = temp[l + i];
+        }
+        for(int i = 0; i < sizeR; i++){
+            R[i] = temp[m + i + 1];
+        }
+        int leftP = 0, rightP = 0, current = l;
+
+        while(leftP < sizeL && rightP < sizeR){
+            int genreL = L[leftP].genreOrder();
+            int genreR = R[rightP].genreOrder();
             if(genreL > genreR){
-                temp[i] = albums[rightP];
+                temp[current] = R[rightP];
                 rightP++;
             }
             else{
-                temp[i] = albums[leftP];
+                temp[current] = L[leftP];
                 leftP++;
             }
-
-            i++;
-            //When left subarray has been traversed
-            if(leftP > m){
-                for(int j = rightP; j <= r; j++){
-                    temp[j] = albums[j];
-                }
-                break;
-            }
-            // When right subarray has been traversed
-            else if(rightP > r){
-                for(int j = leftP; j <= m; j++){
-                    temp[j] = albums[j];
-                }
-                break;
-            }
+            current++;
         }
+        while(leftP < sizeL){
+            temp[current] = L[leftP];
+            leftP++;
+            current++;
+        }
+        while(rightP < sizeR){
+            temp[current] = R[rightP];
+            rightP++;
+            current++;
+        }
+
     }
 
     /**
