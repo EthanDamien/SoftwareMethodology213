@@ -9,39 +9,73 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * The class is a jUnit 4 test class that runs tests on the isValid method located in Date
+ * @author Ethan Damien, Kevin Cubillos
+ */
+
 public class DateTest {
 
     private static final String DATEBEFORE = "07/25/1969";
     private static final String DATEAFTER = "12/31/2021";
     private static final String DATEFEBLEAP = "02/29/2020";
     private static final String DATEFEBNONLEAP = "02/29/2021";
-    private static final String[] DATE31 = {"01/31/2021","03/31/2021","05/31/2021","07/31/2021","08/31/2021","10/31/2021","12/31/2021"};
-    private static final String[] DATE30 = {"04/31/2021","06/31/2021","09/31/2021","11/31/2021"};
+    private static final String[] DATE31 = {"01/31/2021","03/31/2021","05/31/2021","07/31/2021","08/31/2021",
+            "10/31/2020","12/31/2020"};
+    private static final String[] DATE30 = {"04/31/2021","06/31/2021","09/31/2021","11/31/2020"};
     private static final String[] DATE1TO12 = {"00/1/2021","13/1/2021"};
+    private static final String[] BADINPUT = {"13238/1123/2021123", "1/10101010/2021", };
 
+    /**
+     * This tests the date before 1970
+     */
     @Test
-    public void dateBeforeTest() {
-        Assert.assertEquals(false, new Date(DATEBEFORE).isValid());
+    public void isValidBeforeTest() {
+        System.out.println("\nDay after today: This should return false");
+        boolean actual =  new Date(DATEBEFORE).isValid();
+        System.out.println(DATEBEFORE + ", " + actual);
+        Assert.assertEquals(false,actual);
     }
 
+    /**
+     * This tests the date after today
+     */
     @Test
-    public void dateAfterTest() {
-        Assert.assertEquals(false, new Date(DATEAFTER).isValid());
+    public void isValidAfterTest() {
+        System.out.println("\nDay before 1970: This should return false");
+        boolean actual =  new Date(DATEAFTER).isValid();
+        System.out.println(DATEAFTER + ", " + actual);
+        Assert.assertEquals(false,actual);
     }
 
+    /**
+     * This tests Feb 29 on Leap Year
+     */
     @Test
-    public void dateFeb29Test() {
-        Assert.assertEquals(true, new Date(DATEFEBLEAP).isValid());
+    public void isValidFeb29Test() {
+        System.out.println("\nFeb 29 on Leap Year: This should return true");
+        boolean actual =  new Date(DATEFEBLEAP).isValid();
+        System.out.println(DATEFEBLEAP + ", " + actual);
+        Assert.assertEquals(true,actual);
     }
 
+    /**
+     * This tests Feb 29 on non-Leap Year
+     */
     @Test
-    public void dateFeb28Test() {
-        Assert.assertEquals(false, new Date(DATEFEBNONLEAP).isValid());
+    public void isValidFeb28Test() {
+        System.out.println("\nFeb 29 on non-Leap Year: This should return false");
+        boolean actual =  new Date(DATEFEBNONLEAP).isValid();
+        System.out.println(DATEFEBNONLEAP + ", " + actual);
+        Assert.assertEquals(false,actual);
     }
 
+    /**
+     * This tests Months with 31 days
+     */
     @Test
-    public void date31Test() {
-        System.out.println("These should all return true");
+    public void isValid31Test() {
+        System.out.println("\nMonths with 31 days: These should all return true");
         for(String data: DATE31) {
             boolean actual =  new Date(data).isValid();
             System.out.println(data + ", " + actual);
@@ -49,10 +83,39 @@ public class DateTest {
         }
     }
 
+    /**
+     * This tests Months with 30 days
+     */
     @Test
-    public void date1to12Test() {
+    public void isValid30Test() {
+        System.out.println("\nMonths with 30 days: These should all return false");
+        for(String data: DATE30) {
+            boolean actual =  new Date(data).isValid();
+            System.out.println(data + ", " + actual);
+            Assert.assertEquals(false,actual);
+        }
+    }
+
+    /**
+     * This tests months < 1 and months > 12
+     */
+    @Test
+    public void isValid1to12Test() {
+        System.out.println("\nDate 1 - 12: These should all return false");
         for(String data: DATE1TO12) {
-            System.out.println("These should all return false");
+            boolean actual =  new Date(data).isValid();
+            System.out.println(data + ", " + actual);
+            Assert.assertEquals(false,actual);
+        }
+    }
+
+    /**
+     * This tests all bad inputs
+     */
+    @Test
+    public void isValidBadInput() {
+        System.out.println("\nBad Input: These should all return false");
+        for(String data: BADINPUT) {
             boolean actual =  new Date(data).isValid();
             System.out.println(data + ", " + actual);
             Assert.assertEquals(false,actual);
