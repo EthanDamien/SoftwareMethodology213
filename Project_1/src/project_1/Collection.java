@@ -1,7 +1,5 @@
 package project_1;
 
-import java.io.IOException;
-
 /**
  * The class that represents a collection of albums with accompanying methods to update the collection.
  * @author Ethan Chang, Kevin Cubillos
@@ -52,7 +50,7 @@ public class Collection {
      * @param album the album to be added.
      * @return true if album is added, false if album is already in collection.
      */
-    public boolean add(Album album) throws IOException {
+    public boolean add(Album album) {
         if(find(album) != NOT_FOUND){
             return false;
         }

@@ -1,6 +1,5 @@
 package project_1;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 /**
@@ -93,15 +92,11 @@ public class CollectionManager {
             System.out.println("Invalid Date!");
             return;
         }
-        try {
-            if(collection.add(temp)) {
-                System.out.println(temp.toString() + " >> added.");
-            }
-            else{
-                System.out.println(temp.toString() + " >> is already in the collection.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(collection.add(temp)) {
+            System.out.println(temp.toString() + " >> added.");
+        }
+        else{
+            System.out.println(temp.toString() + " >> is already in the collection.");
         }
 
     }
