@@ -41,6 +41,7 @@ public class Date implements Comparable<Date> {
         month = currentDate.get(Calendar.MONTH) + 1; //Months are offset by 1
         day = currentDate.get(Calendar.DAY_OF_MONTH);
         year = currentDate.get(Calendar.YEAR);
+
     }
 
     /**
@@ -78,8 +79,9 @@ public class Date implements Comparable<Date> {
         if(day == MAX_DAYS - 1 && monthOffset != Calendar.FEBRUARY + 1){
             return true;
         }
-        if(day == MAX_DAYS && (monthOffset != Calendar.APRIL && monthOffset != Calendar.NOVEMBER && monthOffset
-                != Calendar.SEPTEMBER && monthOffset != Calendar.JUNE && monthOffset != Calendar.FEBRUARY)){
+        if(day == MAX_DAYS && (monthOffset == Calendar.JANUARY || monthOffset == Calendar.DECEMBER || monthOffset
+                == Calendar.MARCH || monthOffset == Calendar.MAY || monthOffset == Calendar.JULY
+                || monthOffset == Calendar.AUGUST || monthOffset == Calendar.OCTOBER)){
             return true;
         }
 
