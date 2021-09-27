@@ -1,6 +1,7 @@
 package project_1;
 
 import java.util.Calendar;
+import java.util.StringTokenizer;
 
 /**
  * The class that represents the release date of an album in the format: "MM/DD/YYYY"
@@ -26,22 +27,10 @@ public class Date implements Comparable<Date> {
      * @param date String of date in the format: "MM/DD/YYYY".
      */
     public Date(String date) {
-        if(date.length() == 8){
-            month = Integer.parseInt(date.substring(0,1));
-            day = Integer.parseInt(date.substring(2,3));
-            year = Integer.parseInt(date.substring(4,8));
-        }
-        if(date.length() == 9){
-            month = Integer.parseInt(date.substring(0,1));
-            day = Integer.parseInt(date.substring(2,4));
-            year = Integer.parseInt(date.substring(5,9));
-        }
-        else if(date.length() == 10){
-            month = Integer.parseInt(date.substring(0,2));
-            day = Integer.parseInt(date.substring(3,5));
-            year = Integer.parseInt(date.substring(6,10));
-        }
-
+        StringTokenizer st = new StringTokenizer(date, "/");
+        month = Integer.parseInt(st.nextToken());
+        day = Integer.parseInt(st.nextToken());
+        year = Integer.parseInt(st.nextToken());
     } //take “mm/dd/yyyy” and create a Date object
 
     /**
