@@ -11,16 +11,38 @@ public class Date implements Comparable<Date> {
     private int year;
     private int month;
     private int day;
+    /**
+     * A leap year occurs every four years
+     */
     public static final int QUADRENNIAL = 4;
+    /**
+     * Constant to figure out if a year is a leap year
+     */
     public static final int CENTENNIAL = 100;
+    /**
+     * A leap year is divisible by 400
+     */
     public static final int QUATERCENTENNIAL = 400;
+    /**
+     * Lower bound of year range
+     */
     public static final int THE_EIGHTYS = 1980;
+    /**
+     * Smallest calendar day value
+     */
     public static final int MIN_DAYS = 1;
+    /**
+     * Largest calendar day value
+     */
     public static final int MAX_DAYS = 31;
-    public static final int MAX_MONTH = 11; // offset by 1
-    public static final int MIN_MONTH = 0; // offset by 1
-
-    //We need to add a testbed main
+    /**
+     * Largest calendar month value (offset by 1 due to Calendar class)
+     */
+    public static final int MAX_MONTH = 11;
+    /**
+     * Smallest calendar month value (offset by 1 due to Calendar class)
+     */
+    public static final int MIN_MONTH = 0;
 
     /**
      * Constructor of Date that initializes the year, month, and day by the given date.

@@ -27,7 +27,8 @@ public class DateTest {
     private static final String[] BADINPUT = {"13238/1123/2021123", "1/10101010/2021", };
 
     /**
-     * This tests the date before 1970
+     * This tests the date before 1980
+     * Test Case #1
      */
     @Test
     public void isValidBeforeTest() {
@@ -39,6 +40,7 @@ public class DateTest {
 
     /**
      * This tests the date after today
+     * Test Case #2
      */
     @Test
     public void isValidAfterTest() {
@@ -50,6 +52,7 @@ public class DateTest {
 
     /**
      * This tests Feb 29 on Leap Year
+     * Test Case #3
      */
     @Test
     public void isValidFeb29Test() {
@@ -61,6 +64,7 @@ public class DateTest {
 
     /**
      * This tests Feb 29 on non-Leap Year
+     * Test Case #4
      */
     @Test
     public void isValidFeb28Test() {
@@ -72,6 +76,7 @@ public class DateTest {
 
     /**
      * This tests Months with 31 days
+     * Test Case #5
      */
     @Test
     public void isValid31Test() {
@@ -85,6 +90,7 @@ public class DateTest {
 
     /**
      * This tests Months with 30 days
+     * Test Case #6
      */
     @Test
     public void isValid30Test() {
@@ -98,6 +104,7 @@ public class DateTest {
 
     /**
      * This tests month values less than 1 or greater than 12
+     * Test Case #7
      */
     @Test
     public void isValid1to12Test() {
@@ -111,6 +118,7 @@ public class DateTest {
 
     /**
      * This tests all bad inputs
+     * Test Case #8
      */
     @Test
     public void isValidBadInput() {

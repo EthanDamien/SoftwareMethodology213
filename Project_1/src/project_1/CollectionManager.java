@@ -150,7 +150,7 @@ public class CollectionManager {
             System.out.println(input[1] + "::" + input[2] + " >> returning and set to available.");
         }
         else{
-            System.out.println(input[1] + "::" + input[2] + " >> return could not be completed.");
+            System.out.println(input[1] + "::" + input[2] + " >> return cannot be completed.");
         }
     }
 

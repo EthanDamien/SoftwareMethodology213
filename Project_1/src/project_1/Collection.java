@@ -32,7 +32,7 @@ public class Collection {
         }
 
         return NOT_FOUND;
-    } //find the album index, or return NOT_FOUND
+    }
 
     /**
      * Increase the size of the collection by 4 whenever current capacity is reached.
@@ -99,7 +99,7 @@ public class Collection {
         }
 
         return false;
-    } //set to not available
+    }
 
     /**
      * Returns an album to the collection, updating availability to is available.

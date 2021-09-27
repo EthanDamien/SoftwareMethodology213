@@ -5,10 +5,24 @@ package project_1;
  * @author Ethan Chang, Kevin Cubillos
  */
 public enum Genre {
-
+    /**
+     * Classical genre
+     */
     Classical,
+    /**
+     * Country genre
+     */
     Country,
+    /**
+     * Jazz genre
+     */
     Jazz,
+    /**
+     * Pop genre
+     */
     Pop,
+    /**
+     * Unknown genre
+     */
     Unknown
 }

@@ -29,7 +29,6 @@ public class Album {
         this.isAvailable = true;
 
         genre = genre.toUpperCase();
-        System.out.println(genre);
         if(genre.equals("CLASSICAL")){
             this.genre = Genre.Classical;
         }

@@ -15,7 +15,6 @@ import java.util.Scanner;
  *             Q | takes no input | Stop execution and display "Collection Manager Terminated
  * @author Ethan Chang, Kevin Cubillos
  */
-//A,Donda,Kanye,pop,01/01/2001
 public class RunProject1 {
     /**
      * This is the main method that will run the collection manager program.
