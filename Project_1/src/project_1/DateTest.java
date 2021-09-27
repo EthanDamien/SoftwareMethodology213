@@ -17,6 +17,7 @@ public class DateTest {
     private static final String DATEFEBNONLEAP = "02/29/2021";
     private static final String[] DATE31 = {"01/31/2021","03/31/2021","05/31/2021","07/31/2021","08/31/2021","10/31/2021","12/31/2021"};
     private static final String[] DATE30 = {"04/31/2021","06/31/2021","09/31/2021","11/31/2021"};
+    private static final String[] DATE1TO12 = {"00/1/2021","13/1/2021"};
 
     @Test
     public void dateBeforeTest() {
@@ -49,13 +50,14 @@ public class DateTest {
     }
 
     @Test
-    public void setDate30Test() {
-        for(String data: DATE30) {
+    public void date1to12Test() {
+        for(String data: DATE1TO12) {
             System.out.println("These should all return false");
             boolean actual =  new Date(data).isValid();
             System.out.println(data + ", " + actual);
             Assert.assertEquals(false,actual);
         }
     }
+
 
 }
