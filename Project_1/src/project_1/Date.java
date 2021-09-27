@@ -31,7 +31,7 @@ public class Date implements Comparable<Date> {
         month = Integer.parseInt(st.nextToken());
         day = Integer.parseInt(st.nextToken());
         year = Integer.parseInt(st.nextToken());
-    } //take “mm/dd/yyyy” and create a Date object
+    }
 
     /**
      * Constructor of Date that initializes the year, month, and day by today's date.

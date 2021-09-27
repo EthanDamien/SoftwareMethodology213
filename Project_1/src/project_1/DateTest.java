@@ -97,7 +97,7 @@ public class DateTest {
     }
 
     /**
-     * This tests months < 1 and months > 12
+     * This tests month values less than 1 or greater than 12
      */
     @Test
     public void isValid1to12Test() {

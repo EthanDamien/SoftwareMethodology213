@@ -17,6 +17,10 @@ import java.util.Scanner;
  */
 //A,Donda,Kanye,pop,01/01/2001
 public class RunProject1 {
+    /**
+     * This is the main method that will run the collection manager program.
+     * @param args list of command line arguments
+     */
     public static void main(String[] args) {
         CollectionManager App = new CollectionManager();
         App.run();

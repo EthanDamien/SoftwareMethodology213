@@ -101,8 +101,7 @@ public class Album {
     public Genre getGenre(){return genre;}
 
     /**
-     * Getter for title
-     * @return title of album
+     * Updates availability of album to opposite of current status
      */
     public void setAvailable(){isAvailable = !isAvailable;}
 
