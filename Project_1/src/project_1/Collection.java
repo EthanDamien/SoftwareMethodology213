@@ -202,7 +202,9 @@ public class Collection {
         for(int i = 0; i < sizeR; i++){
             R[i] = temp[m + i + 1];
         }
-        int leftP = 0, rightP = 0, current = l;
+        int leftP = 0;
+        int rightP = 0;
+        int current = l;
 
         while(leftP < sizeL && rightP < sizeR){
             int comp = L[leftP].getReleaseDate().compareTo(R[rightP].getReleaseDate());
@@ -247,7 +249,9 @@ public class Collection {
         for(int i = 0; i < sizeR; i++){
             R[i] = temp[m + i + 1];
         }
-        int leftP = 0, rightP = 0, current = l;
+        int leftP = 0;
+        int rightP = 0;
+        int current = l;
 
         while(leftP < sizeL && rightP < sizeR){
             int genreL = L[leftP].genreOrder();
