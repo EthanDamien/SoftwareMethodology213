@@ -26,7 +26,7 @@ public class CollectionManager {
     public void run(){
         System.out.println("Collection Manager starts running.");
         Scanner scan = new Scanner(System.in);
-        String currString = null;
+        String currString;
         boolean rerun = true;
         while(rerun){
             currString = scan.nextLine();
@@ -42,8 +42,7 @@ public class CollectionManager {
         }
     }
 
-    /** This checks weather the input is valid, and will call each subsequent method that is attributed to each
-     * instruction.
+    /** This checks whether the input is valid, and will call each method that is attributed to each instruction.
      * @param input the input array Index 0 = Instruction, 1 = Name, 2 = Author, 3 = Genre, 4 = Date
      * @return returns false if instruction is "Q"
      */

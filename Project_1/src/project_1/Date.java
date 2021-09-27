@@ -38,10 +38,10 @@ public class Date implements Comparable<Date> {
      */
     public Date() {
         Calendar currentDate = Calendar.getInstance();
-        month = currentDate.get(Calendar.MONTH);
+        month = currentDate.get(Calendar.MONTH) + 1; //Months are offset by 1
         day = currentDate.get(Calendar.DAY_OF_MONTH);
         year = currentDate.get(Calendar.YEAR);
-    } //create an object with today’s date (see Calendar class)
+    }
 
     /**
      * Checks if date is a valid Calendar date.
@@ -49,8 +49,10 @@ public class Date implements Comparable<Date> {
      * @return true if date is valid, false otherwise.
      */
     public boolean isValid() {
-        if(month < MIN_MONTH || month > MAX_MONTH || day < MIN_DAYS || day > MAX_DAYS || year < THE_EIGHTYS
-                || year > Calendar.getInstance().get(Calendar.YEAR)){
+        if(month < MIN_MONTH || month > MAX_MONTH || day < MIN_DAYS || day > MAX_DAYS || year < THE_EIGHTYS){
+            return false;
+        }
+        if(this.compareTo(new Date()) == -1){
             return false;
         }
         if(day <= MAX_DAYS - 3){
