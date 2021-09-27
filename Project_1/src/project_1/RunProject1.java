@@ -1,5 +1,5 @@
 package project_1;
-import java.util.Scanner;
+
 
 /**
  * This is the main running class that handles valid inputs and operations based on the requirements given in Project 1.

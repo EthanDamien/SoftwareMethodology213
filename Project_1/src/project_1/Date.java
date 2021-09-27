@@ -161,4 +161,11 @@ public class Date implements Comparable<Date> {
     public int getYear(){
         return year;
     }
+
+    /**
+     * Testbed main for the Date class
+     */
+    public static void main(String[] args) {
+
+    }
 }
