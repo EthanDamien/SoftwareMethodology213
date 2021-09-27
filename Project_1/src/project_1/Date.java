@@ -17,8 +17,8 @@ public class Date implements Comparable<Date> {
     public static final int THE_EIGHTYS = 1980;
     public static final int MIN_DAYS = 1;
     public static final int MAX_DAYS = 31;
-    public static final int MAX_MONTH = 12;
-    public static final int MIN_MONTH = 1;
+    public static final int MAX_MONTH = 11; // offset by 1
+    public static final int MIN_MONTH = 0; // offset by 1
 
     //We need to add a testbed main
 
@@ -49,7 +49,9 @@ public class Date implements Comparable<Date> {
      * @return true if date is valid, false otherwise.
      */
     public boolean isValid() {
-        if(month < MIN_MONTH || month > MAX_MONTH || day < MIN_DAYS || day > MAX_DAYS || year < THE_EIGHTYS){
+        int monthOffset = month - 1;
+        if(monthOffset < MIN_MONTH || monthOffset > MAX_MONTH || day < MIN_DAYS || day > MAX_DAYS
+                || year < THE_EIGHTYS){
             return false;
         }
         if(this.compareTo(new Date()) == -1){
@@ -59,7 +61,7 @@ public class Date implements Comparable<Date> {
             return true;
         }
         if(day == MAX_DAYS - 2){
-            if(month == Calendar.FEBRUARY){
+            if(monthOffset == Calendar.FEBRUARY){
                 if(year % QUADRENNIAL == 0){
                     if(year % CENTENNIAL == 0){
                         if(year % QUATERCENTENNIAL == 0){
@@ -73,11 +75,11 @@ public class Date implements Comparable<Date> {
             }
             return true;
         }
-        if(day == MAX_DAYS - 1 && month != Calendar.FEBRUARY){
+        if(day == MAX_DAYS - 1 && monthOffset != Calendar.FEBRUARY + 1){
             return true;
         }
-        if(day == MAX_DAYS && (month != Calendar.APRIL && month != Calendar.NOVEMBER && month != Calendar.SEPTEMBER
-                && month != Calendar.JUNE && month != Calendar.FEBRUARY)){
+        if(day == MAX_DAYS && (monthOffset != Calendar.APRIL && monthOffset != Calendar.NOVEMBER && monthOffset
+                != Calendar.SEPTEMBER && monthOffset != Calendar.JUNE && monthOffset != Calendar.FEBRUARY)){
             return true;
         }
 
