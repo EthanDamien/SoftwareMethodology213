@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 /**
  * The class is a jUnit 4 test class that runs tests on the isValid method located in Date
- * @author Ethan Damien, Kevin Cubillos
+ * @author Ethan Chang, Kevin Cubillos
  */
 
 public class DateTest {

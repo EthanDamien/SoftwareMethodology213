@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 /**
  * The class that represents the release date of an album in the format: "MM/DD/YYYY"
- * @author Ethan Damien, Kevin Cubillos
+ * @author Ethan Chang, Kevin Cubillos
  */
 public class Date implements Comparable<Date> {
     private int year;
