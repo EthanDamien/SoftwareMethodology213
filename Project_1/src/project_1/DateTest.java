@@ -15,15 +15,22 @@ import static org.junit.Assert.*;
  */
 
 public class DateTest {
-
+    /** For test case #1 */
     private static final String DATEBEFORE = "07/25/1969";
+    /** For test case #2 */
     private static final String DATEAFTER = "12/31/2021";
+    /** For test case #3 */
     private static final String DATEFEBLEAP = "02/29/2020";
+    /** For test case #4 */
     private static final String DATEFEBNONLEAP = "02/29/2021";
+    /** For test case #5 */
     private static final String[] DATE31 = {"01/31/2021","03/31/2021","05/31/2021","07/31/2021","08/31/2021",
             "10/31/2020","12/31/2020"};
+    /** For test case #6 */
     private static final String[] DATE30 = {"04/31/2021","06/31/2021","09/31/2021","11/31/2020"};
+    /** For test case #7 */
     private static final String[] DATE1TO12 = {"00/1/2021","13/1/2021"};
+    /** For test case #8 */
     private static final String[] BADINPUT = {"13238/1123/2021123", "1/10101010/2021", };
 
     /**

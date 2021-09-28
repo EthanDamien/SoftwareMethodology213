@@ -8,8 +8,11 @@ import java.util.StringTokenizer;
  * @author Ethan Chang, Kevin Cubillos
  */
 public class Date implements Comparable<Date> {
+    /** Year of the date. */
     private int year;
+    /** Month of the date. */
     private int month;
+    /** Day of the date. */
     private int day;
     /**
      * A leap year occurs every four years
