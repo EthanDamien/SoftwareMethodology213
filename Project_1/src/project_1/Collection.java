@@ -5,8 +5,11 @@ package project_1;
  * @author Ethan Chang, Kevin Cubillos
  */
 public class Collection {
+    /** List of albums */
     private Album[] albums;
+    /** The numbers of albums in the list */
     private int numAlbums;
+    /** Constant to signify if an album is not found in the list. */
     private static final int NOT_FOUND = -1;
 
 

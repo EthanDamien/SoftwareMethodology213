@@ -7,10 +7,17 @@ package project_1;
  * @author Ethan Chang, Kevin Cubillos
  */
 public class Album {
+    /** Title of the album. */
     private String title;
+    /** Artist name of the album. */
     private String artist;
-    private Genre genre; //enum class; Classical, Country, Jazz, Pop, Unknown
+    /** Music genre of the album.
+     * An enum with constants Classical, Country, Jazz, Pop, Unknown.
+     * */
+    private Genre genre;
+    /** Release date of the album. */
     private Date releaseDate;
+    /** Availability of the album. */
     private boolean isAvailable;
 
     /**

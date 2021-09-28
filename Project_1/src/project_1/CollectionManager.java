@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
  * @author Ethan Chang, Kevin Cubillos
  */
 public class CollectionManager {
-
+    /** Collection of albums */
     private Collection collection = new Collection();
 
     /** Runs a loop that takes in a certain amount of arguments, it can be terminated by entering Q into the
