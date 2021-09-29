@@ -21,6 +21,15 @@ public class Roster {
         return true;
     }
 
+    public boolean calculate() {
+        return true;
+    }
+
+    public boolean setAbroadStatus(Student student, String isAbroad){
+        return true;
+    }
+
+
     public void print(){
 
     }
@@ -32,4 +41,6 @@ public class Roster {
     public void printByPaymentDate(){
 
     }
+
+
 }
