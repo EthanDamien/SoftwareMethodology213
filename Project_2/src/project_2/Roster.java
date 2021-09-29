@@ -20,4 +20,16 @@ public class Roster {
     public boolean remove(Student student){
         return true;
     }
+
+    public void print(){
+
+    }
+
+    public void printByName(){
+
+    }
+
+    public void printByPaymentDate(){
+
+    }
 }
