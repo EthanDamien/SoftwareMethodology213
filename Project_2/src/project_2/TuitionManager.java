@@ -171,6 +171,41 @@ public class TuitionManager {
 
     }
 
+    /**
+     * Sets the financial aid based on the input
+     * @param input the input array for the instruction
+     */
     private void setFinancialAid(String[] input) {
+        if(input.length != 4){
+            System.out.println("Invalid command!");
+        }
+        String financialAid = input[3];
+    }
+
+    /**
+     * Prints the roster given the type of print order
+     * @param input the input array for the instruction
+     * @param type 1 = no order, 2 = by Names, 3 = those who've paid, ordered by payment date
+     */
+    private void printRoster(String[] input, int type) {
+        if(input.length != 1){
+            System.out.println("Invalid command!");
+        }
+        switch(type){
+            case 1:
+                System.out.println("* list of students in the roster **");
+                roster.print();
+                break;
+            case 2:
+                System.out.println("* list of students ordered by name **");
+                roster.printByName();
+                break;
+            case 3:
+                System.out.println("* list of students made payments ordered by payment date **");
+                roster.printByPaymentDate();
+                break;
+            default:
+                break;
+        }
     }
 }
