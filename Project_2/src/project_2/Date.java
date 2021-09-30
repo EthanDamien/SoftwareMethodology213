@@ -80,9 +80,6 @@ public class Date implements Comparable<Date> {
                 || year < TWENTYONE){
             return false;
         }
-        if(this.compareTo(new Date()) == -1){
-            return false;
-        }
         if(day <= MAX_DAYS - 3){
             return true;
         }

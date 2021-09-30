@@ -112,15 +112,27 @@ public class TuitionManager {
     private void addStudent(String[] input, int type) {
         switch(type){
             case 1:
+                if(input.length != 4){
+                    System.out.println("Invalid command!");
+                }
                 //AR
                 break;
             case 2:
+                if(input.length != 4){
+                    System.out.println("Invalid command!");
+                }
                 //AN
                 break;
             case 3:
+                if(input.length != 5){
+                    System.out.println("Invalid command!");
+                }
                 //AT
                 break;
             case 4:
+                if(input.length != 5){
+                    System.out.println("Invalid command!");
+                }
                 //AI
                 break;
         }
