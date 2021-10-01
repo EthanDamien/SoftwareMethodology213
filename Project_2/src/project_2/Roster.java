@@ -25,10 +25,27 @@ public class Roster {
     }
 
     public boolean add(Student student){
+        if(find(student) != NOT_FOUND){
+            return false;
+        }
+        if(size + 1 == roster.length + 1){
+            grow();
+        }
+        roster[size] = student;
+        size++;
         return true;
     }
 
     public boolean remove(Student student){
+        int index = find(student);
+        if(index == NOT_FOUND){
+            return false;
+        }
+        for(int j = index; j < size-1; j++){
+            roster[j] = roster[j+1];
+        }
+        roster[size-1] = null;
+        size--;
         return true;
     }
 
