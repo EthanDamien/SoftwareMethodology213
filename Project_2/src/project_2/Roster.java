@@ -55,6 +55,14 @@ public class Roster {
     }
 
     public boolean calculate() {
+
+        if(size == EMPTY){
+            return false;
+        }
+
+        for(int i = 0; i < size; i++){
+            roster[i].tuitionDue();
+        }
         return true;
     }
 

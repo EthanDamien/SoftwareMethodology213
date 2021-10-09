@@ -29,8 +29,8 @@ public class NonResident extends Student{
 
     @Override
     public String toString(){
+        String date = getLastPaymentDate() == null ? "--/--/--" : getLastPaymentDate().toString();
         return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:" + getTuition()
-                + ":last payment:" + getTotalPayment() + ":payment date: " + getLastPaymentDate().toString()
-                + ":non-resident";
+                + ":last payment:" + getTotalPayment() + ":payment date: " + date + ":non-resident";
     }
 }
