@@ -46,7 +46,9 @@ public class Resident extends Student{
     public String toString(){
         //Use DecimalFormat for tuition and last payment fields.
         String date = getLastPaymentDate() == null ? "--/--/--" : getLastPaymentDate().toString();
-        return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:" + getTuition()
-                + ":last payment:" + getTotalPayment() + ":payment date: " + date + ":resident";
+        return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:"
+                + Student.DECIMAL_FORMAT.format(getTuition()) + ":total payment:"
+                + Student.DECIMAL_FORMAT.format(getTotalPayment())
+                + ":payment date: " + date + ":resident";
     }
 }

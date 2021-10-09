@@ -1,14 +1,17 @@
 package project_2;
+import java.text.DecimalFormat;
 
 
 public class Student {
-
     private Profile profile;
     private int credits;
     private Date lastPaymentDate;
     private double totalPayment;
     private double tuition;
 
+    public static final String FORMAT = "##,##0.00";
+    public static final int ZERO = 0;
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(FORMAT);
     public static final int MIN_FULL_TIME = 12;
     public static final int MAX_CREDITS = 24;
     public static final int CREDIT_EXCEED = 16;
@@ -21,6 +24,11 @@ public class Student {
         tuition = 0;
     }
 
+    public Student(String name, String major, double payment, Date date){
+        profile = new Profile(name, major);
+        this.totalPayment = payment;
+        this.lastPaymentDate = date;
+    }
 
     public void tuitionDue(){
 
@@ -64,12 +72,22 @@ public class Student {
 
     public boolean makePayment(double amount, Date date){
         if(amount > tuition){
+            System.out.println("Amount is greater than amount due.");
+            return false;
+        }
+        if(amount <= ZERO){
+            System.out.println("Invalid amount.");
+            return false;
+        }
+        if(!date.isValid()){
+            System.out.println("Payment date invalid.");
             return false;
         }
 
         tuition = tuition - amount;
         totalPayment += amount;
         lastPaymentDate = date;
+        System.out.println("Payment Applied");
         return true;
     }
 

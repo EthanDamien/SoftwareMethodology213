@@ -35,8 +35,9 @@ public class TriState extends NonResident{
     @Override
     public String toString(){
         String date = getLastPaymentDate() == null ? "--/--/--" : getLastPaymentDate().toString();
-        return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:" + getTuition()
-                + ":last payment:" + getTotalPayment() + ":payment date: " + date
-                + ":non-resident(tri-state):" + state;
+        return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:"
+                + Student.DECIMAL_FORMAT.format(getTuition()) + ":total payment:"
+                + Student.DECIMAL_FORMAT.format(getTotalPayment())
+                + ":payment date: " + date + ":non-resident(tri-state):" + state;
     }
 }

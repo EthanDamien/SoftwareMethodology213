@@ -25,15 +25,16 @@ public class International extends NonResident{
 
     @Override
     public void tuitionDue(){
-        int tuition = studyingAbroad ? FULL_TUIT : 0;
+        int tuition = studyingAbroad ? 0 : FULL_TUIT;
         setTuition(tuition + UNI_FEE + ADD_FEE);
     }
 
     @Override
     public String toString(){
         String date = getLastPaymentDate() == null ? "--/--/--" : getLastPaymentDate().toString();
-        return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:" + getTuition()
-                + ":last payment:" + getTotalPayment() + ":payment date: " + date
-                + ":non-resident:international" + (studyingAbroad ? ":study abroad" : "");
+        return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:"
+                + Student.DECIMAL_FORMAT.format(getTuition())  + ":total payment:"
+                + Student.DECIMAL_FORMAT.format(getTotalPayment())
+                + ":payment date: " + date + ":non-resident:international" + (studyingAbroad ? ":study abroad" : "");
     }
 }

@@ -26,6 +26,19 @@ import java.util.StringTokenizer;
  * @author Ethan Chang, Kevin Cubillos
  */
 public class TuitionManager {
+    public static final int EMPTY_NUM = 0;
+    public static final int RESIDENT_ADD_COMMAND_AMOUNT = 4;
+    public static final int NONRESIDENT_ADD_COMMAND_AMOUNT = 4;
+    public static final int TRISTATE_ADD_COMMAND_AMOUNT = 5;
+    public static final int INTERNATIONAL_ADD_COMMAND_AMOUNT = 5;
+    public static final int RESIDENT = 1;
+    public static final int NONRESIDENT = 2;
+    public static final int TRISTATE = 3;
+    public static final int INTERNATIONAL = 4;
+    public static final int RESIDENT_CREDIT_CHECKNUM = 3;
+    public static final int NONRESIDENT_CREDIT_CHECKNUM = 3;
+    public static final int INTERNATIONAL_CREDIT_CHECKNUM = 3;
+
     Roster roster = new Roster();
     /** Runs a loop that takes in a certain amount of arguments, it can be terminated by entering Q into the
      * Command Line
@@ -98,7 +111,7 @@ public class TuitionManager {
                 printRoster(input, 3);
                 break;
             default:
-                System.out.println("Invalid command!");
+                System.out.println("Command '" + input[0] + "' not supported!");
                 break;
         }
         return true;
@@ -111,42 +124,62 @@ public class TuitionManager {
      */
     private void addStudent(String[] input, int type) {
         switch(type){
-            case 1:
-                if(input.length != 4){
-                    System.out.println("Invalid command!");
+            case RESIDENT:
+                if(input.length == RESIDENT_CREDIT_CHECKNUM){
+                    System.out.println("Credit hours missing.");
                     return;
                 }
+                if(input.length != RESIDENT_ADD_COMMAND_AMOUNT){
+                    System.out.println("Missing data in command line.");
+                    return;
+                }
+                if(!isValidCreditNum(input[3], false))
+                    return;
                 Resident resident = new Resident(input[1], input[2], Integer.parseInt(input[3]));
                 roster.add(resident);
-                //AR
+                System.out.println("Student Added.");
                 break;
-            case 2:
-                if(input.length != 4){
-                    System.out.println("Invalid command!");
+            case NONRESIDENT:
+                if(input.length == NONRESIDENT_CREDIT_CHECKNUM){
+                    System.out.println("Credit hours missing.");
                     return;
                 }
+                if(input.length != NONRESIDENT_ADD_COMMAND_AMOUNT){
+                    System.out.println("Missing data in command line.");
+                    return;
+                    }
+                if(!isValidCreditNum(input[3], false))
+                    return;
                 NonResident nonresident = new NonResident(input[1], input[2], Integer.parseInt(input[3]));
                 roster.add(nonresident);
-                //AN
+                System.out.println("Student Added.");
                 break;
-            case 3:
-                if(input.length != 5){
-                    System.out.println("Invalid command!");
+            case TRISTATE:
+                if(input.length != TRISTATE_ADD_COMMAND_AMOUNT){
+                    System.out.println("Missing data in command line.");
                     return;
                 }
+                if(!isValidCreditNum(input[3], false))
+                    return;
                 TriState tristate = new TriState(input[1], input[2], Integer.parseInt(input[3]), input[4]);
                 roster.add(tristate);
-                //AT
+                System.out.println("Student Added.");
                 break;
-            case 4:
-                if(input.length != 5 || !(input[4].toUpperCase().equals("TRUE") || input[4].toUpperCase().equals("FALSE"))){
-                    System.out.println("Invalid command!");
+            case INTERNATIONAL:
+                if(input.length == INTERNATIONAL_CREDIT_CHECKNUM){
+                    System.out.println("Credit hours missing.");
                     return;
                 }
+                if(input.length != INTERNATIONAL_ADD_COMMAND_AMOUNT || !(input[4].toUpperCase().equals("TRUE") || input[4].toUpperCase().equals("FALSE"))){
+                    System.out.println("Missing data in command line.");
+                    return;
+                }
+                if(!isValidCreditNum(input[3], true))
+                    return;
                 boolean abroad = "TRUE".equals(input[4].toUpperCase());
                 International international = new International(input[1], input[2], Integer.parseInt(input[3]), abroad);
                 roster.add(international);
-                //AI
+                System.out.println("Student Added.");
                 break;
         }
     }
@@ -160,7 +193,14 @@ public class TuitionManager {
             System.out.println("Student is not in the roster");
             return;
         }
-        roster.remove(null);
+        Student temp = new Student(input[1], input[2], EMPTY_NUM);
+        if(roster.remove(temp)){
+            System.out.println("Student removed from the roster.");
+        }
+        else{
+            System.out.println("Student is not in the roster");
+        }
+
     }
 
     /**
@@ -168,6 +208,7 @@ public class TuitionManager {
      */
     private void calculate() {
         roster.calculate();
+        System.out.println("Calculation completed.");
     }
 
     /**
@@ -175,11 +216,22 @@ public class TuitionManager {
      * @param input the input array for the instruction
      */
     private void payTuition(String[] input) {
-        if(input.length != 5){
+        if(input.length <= 5){
             if(input.length == 3){
                 System.out.println("Payment amount missing.");
+                return;
             }
-            System.out.println("Invalid command!");
+            if(input.length < 3){
+                System.out.println("Invalid Command!");
+            }
+            Date date = null;
+            if(input.length == 5){
+                date = new Date(input[4]);
+            }
+            Student temp = new Student(input[1], input[2], Double.parseDouble(input[3]), date);
+            if(!roster.makePayment(temp)){
+                return;
+            }
         }
     }
 
@@ -213,8 +265,9 @@ public class TuitionManager {
      * @param type 1 = no order, 2 = by Names, 3 = those who've paid, ordered by payment date
      */
     private void printRoster(String[] input, int type) {
-        if(input.length != 1){
-            System.out.println("Invalid command!");
+        if(roster.getSize() == Roster.EMPTY){
+            System.out.println("Student roster is empty!");
+            return;
         }
         switch(type){
             case 1:
@@ -226,11 +279,43 @@ public class TuitionManager {
                 roster.printByName();
                 break;
             case 3:
+                int count = roster.checkPaidCount();
+                if(count == Roster.EMPTY) {
+                    System.out.println("Student Roster is Empty!");
+                    return;
+                }
                 System.out.println("* list of students made payments ordered by payment date **");
-                roster.printByPaymentDate();
+                roster.printByPaymentDate(count);
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * Checks if it's a valid Credit amount based on project details
+     * @param creditString string contains the credit amount to be checked
+     * @param isInternational a boolean that denotes if international rule is applied
+     * @return
+     */
+    private boolean isValidCreditNum(String creditString, boolean isInternational){
+        int credit = Integer.parseInt(creditString);
+        if(credit > 24){
+            System.out.println("Credit hours exceed the maximum 24.");
+            return false;
+        }
+        else if (credit < 0) {
+            System.out.println("Credit hours cannot be negative.");
+            return false;
+        }
+        else if(credit < 3){
+            System.out.println("Minimum credit hours is 3.");
+            return false;
+        }
+        else if(credit < 12 && isInternational){
+            System.out.println("International students must enroll at least 12 credits.");
+            return false;
+        }
+        return true;
     }
 }
