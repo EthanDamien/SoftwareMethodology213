@@ -98,7 +98,7 @@ public class TuitionManager {
                 printRoster(input, 3);
                 break;
             default:
-                System.out.println("Command '" + input[0] + "' not supported!");
+                System.out.println("Invalid command!");
                 break;
         }
         return true;
@@ -114,25 +114,38 @@ public class TuitionManager {
             case 1:
                 if(input.length != 4){
                     System.out.println("Invalid command!");
+                    return;
                 }
+                Resident resident = new Resident(input[1], input[2], Integer.parseInt(input[3]));
+                roster.add(resident);
                 //AR
                 break;
             case 2:
                 if(input.length != 4){
                     System.out.println("Invalid command!");
+                    return;
                 }
+                NonResident nonresident = new NonResident(input[1], input[2], Integer.parseInt(input[3]));
+                roster.add(nonresident);
                 //AN
                 break;
             case 3:
                 if(input.length != 5){
                     System.out.println("Invalid command!");
+                    return;
                 }
+                TriState tristate = new TriState(input[1], input[2], Integer.parseInt(input[3]), input[4]);
+                roster.add(tristate);
                 //AT
                 break;
             case 4:
-                if(input.length != 5){
+                if(input.length != 5 || !(input[4].toUpperCase().equals("TRUE") || input[4].toUpperCase().equals("FALSE"))){
                     System.out.println("Invalid command!");
+                    return;
                 }
+                boolean abroad = "TRUE".equals(input[4].toUpperCase());
+                International international = new International(input[1], input[2], Integer.parseInt(input[3]), abroad);
+                roster.add(international);
                 //AI
                 break;
         }
@@ -200,27 +213,24 @@ public class TuitionManager {
      * @param type 1 = no order, 2 = by Names, 3 = those who've paid, ordered by payment date
      */
     private void printRoster(String[] input, int type) {
-        if(roster.getSize() == Roster.EMPTY){
-            System.out.println("Student roster is empty!");
+        if(input.length != 1){
+            System.out.println("Invalid command!");
         }
-        else{
-            switch(type){
-                case 1:
-                    System.out.println("* list of students in the roster **");
-                    roster.print();
-                    break;
-                case 2:
-                    System.out.println("* list of students ordered by name **");
-                    roster.printByName();
-                    break;
-                case 3:
-                    System.out.println("* list of students made payments ordered by payment date **");
-                    roster.printByPaymentDate();
-                    break;
-                default:
-                    break;
-            }
+        switch(type){
+            case 1:
+                System.out.println("* list of students in the roster **");
+                roster.print();
+                break;
+            case 2:
+                System.out.println("* list of students ordered by name **");
+                roster.printByName();
+                break;
+            case 3:
+                System.out.println("* list of students made payments ordered by payment date **");
+                roster.printByPaymentDate();
+                break;
+            default:
+                break;
         }
-
     }
 }
