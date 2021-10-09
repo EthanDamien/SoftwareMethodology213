@@ -1,5 +1,8 @@
 package project_2;
 
+/**
+ * The
+ */
 public class NonResident extends Student{
 
     public static final int CREDIT_HOUR = 966;
