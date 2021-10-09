@@ -6,10 +6,18 @@ public class Roster {
 
     private Student[] roster;
     private int size;
-    private static final int NOT_FOUND = -1;
-    private static final int SAME_NAME = 0;
-    private static final int EMPTY = 0;
+    public static final int NOT_FOUND = -1;
+    public static final int SAME_NAME = 0;
+    public static final int EMPTY = 0;
 
+    public Roster(){
+        roster = new Student[4];
+        size = 0;
+    }
+
+    public int getSize() {
+        return size;
+    }
 
     private int find(Student student){
         for(int i = 0; i < size; i++){

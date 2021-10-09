@@ -57,4 +57,8 @@ public class Profile {
         return major;
     }
 
+    public static boolean validMajor(){
+        return false;
+    }
+
 }
