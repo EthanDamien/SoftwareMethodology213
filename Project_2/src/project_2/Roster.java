@@ -28,6 +28,22 @@ public class Roster {
         return NOT_FOUND;
     }
 
+    public boolean makePayment(Student student){
+        for(int i = 0; i < size; i++){
+            if(roster[i].getProfile().equals(student.getProfile())){
+                if(roster[i].makePayment(student.getTotalPayment(), student.getLastPaymentDate())){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        System.out.println("Student Not Found");
+        return false;
+    }
+
+
     private void grow(){
         Student[] temp = new Student[size+4];
         for(int i = 0; i < size; i++){
@@ -116,13 +132,7 @@ public class Roster {
 
     }
 
-    public boolean printByPaymentDate(){
-        int count = 0;
-        for(int i = 0; i < size; i++){
-            if(roster[i].getTotalPayment() > 0){
-                count++;
-            }
-        }
+    public boolean printByPaymentDate(int count){
 
         if(count == EMPTY){
             return false;
@@ -138,13 +148,23 @@ public class Roster {
         }
 
         mergeSort(paid, 0, paid.length - 1, 1);
-        for(int i = 0; i < paid.length; i++){
-            System.out.println(paid[i].toString());
+        for (Student student : paid) {
+            System.out.println(student.toString());
         }
 
 
         return true;
 
+    }
+
+    public int checkPaidCount(){
+        int count = 0;
+        for(int i = 0; i < size; i++){
+            if(roster[i].getTotalPayment() > 0){
+                count++;
+            }
+        }
+        return count;
     }
 
     private void mergeSort(Student[] temp, int l, int r, int order){
