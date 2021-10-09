@@ -12,6 +12,17 @@ public class International extends NonResident{
         studyingAbroad = abroad;
     }
 
+    public void setStudyingAbroad() {
+        if(getCredits() > MIN_CREDITS){
+            setCredits(MIN_CREDITS);
+        }
+        clearDate();
+        clearTotalPayment();
+        setTuition(0);
+        studyingAbroad = !studyingAbroad;
+        tuitionDue();
+    }
+
     @Override
     public void tuitionDue(){
         int tuition = studyingAbroad ? FULL_TUIT : 0;
@@ -21,7 +32,7 @@ public class International extends NonResident{
     @Override
     public String toString(){
         return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:" + getTuition()
-                + ":last payment:" + getLastPaymentAmount() + ":payment date: " + getLastPaymentDate().toString()
+                + ":last payment:" + getTotalPayment() + ":payment date: " + getLastPaymentDate().toString()
                 + ":non-resident:international" + (studyingAbroad ? ":study abroad" : "");
     }
 }

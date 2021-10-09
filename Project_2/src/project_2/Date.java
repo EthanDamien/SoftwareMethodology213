@@ -47,6 +47,10 @@ public class Date implements Comparable<Date> {
      */
     public static final int MIN_MONTH = 0;
 
+    public static final int BEFORE = -1;
+    public static final int SAME_DATE = 0;
+    public static final int AFTER = 1;
+
     /**
      * Constructor of Date that initializes the year, month, and day by the given date.
      * @param date String of date in the format: "MM/DD/YYYY".
@@ -118,15 +122,15 @@ public class Date implements Comparable<Date> {
      */
     @Override
     public int compareTo(Date date) {
-        if(year > date.getYear()) return -1;
+        if(year > date.getYear()) return BEFORE;
         if(year == date.getYear()){
-            if(month > date.getMonth()) return -1;
+            if(month > date.getMonth()) return BEFORE;
             if(month == date.getMonth()){
-                if(day > date.getDay()) return -1;
-                if(day == date.getDay()) return 0;
+                if(day > date.getDay()) return BEFORE;
+                if(day == date.getDay()) return SAME_DATE;
             }
         }
-        return 1;
+        return AFTER;
     }
 
     /**

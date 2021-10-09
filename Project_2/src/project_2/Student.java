@@ -6,7 +6,7 @@ public class Student {
     private Profile profile;
     private int credits;
     private Date lastPaymentDate;
-    private double lastPaymentAmount;
+    private double totalPayment;
     private double tuition;
 
     public static final int MIN_FULL_TIME = 12;
@@ -42,12 +42,24 @@ public class Student {
         return lastPaymentDate;
     }
 
-    public double getLastPaymentAmount() {
-        return lastPaymentAmount;
+    public double getTotalPayment() {
+        return totalPayment;
     }
 
     public void setTuition(double tuition) {
         this.tuition = tuition;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+
+    public void clearDate(){
+        lastPaymentDate = null;
+    }
+
+    public void clearTotalPayment(){
+        totalPayment = 0;
     }
 
     public boolean makePayment(double amount, Date date){
@@ -56,7 +68,7 @@ public class Student {
         }
 
         tuition = tuition - amount;
-        lastPaymentAmount = amount;
+        totalPayment += amount;
         lastPaymentDate = date;
         return true;
     }
@@ -65,6 +77,6 @@ public class Student {
     @Override
     public String toString(){
         return profile.toString() + ":" + credits +  " credit hours:tuition due:" + tuition
-                + ":last payment:" + lastPaymentAmount + ":payment date: " + lastPaymentDate.toString();
+                + ":total payment:" + totalPayment + ":payment date: " + lastPaymentDate.toString();
     }
 }
