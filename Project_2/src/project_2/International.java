@@ -4,8 +4,8 @@ public class International extends NonResident{
 
     private boolean studyingAbroad;
 
-    public static final int ADD_FEE = 2650;
-    public static final int MIN_CREDITS = 12;
+    private static final int ADD_FEE = 2650;
+    private static final int MIN_CREDITS = 12;
 
     public International(String name, String major, int credits, boolean abroad){
         super(name, major, credits);

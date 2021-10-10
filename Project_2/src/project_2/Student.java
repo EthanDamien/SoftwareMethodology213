@@ -9,7 +9,7 @@ public class Student {
     private double totalPayment;
     private double tuition;
 
-    public static final String FORMAT = "##,##0.00";
+    private static final String FORMAT = "##,##0.00";
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(FORMAT);
     public static final int MIN_FULL_TIME = 12;
     public static final int MAX_CREDITS = 24;

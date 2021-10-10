@@ -26,19 +26,19 @@ import java.util.StringTokenizer;
  * @author Ethan Chang, Kevin Cubillos
  */
 public class TuitionManager {
-    public static final int EMPTY_NUM = 0;
-    public static final int RESIDENT_ADD_COMMAND_AMOUNT = 4;
-    public static final int NONRESIDENT_ADD_COMMAND_AMOUNT = 4;
-    public static final int TRISTATE_ADD_COMMAND_AMOUNT = 5;
-    public static final int INTERNATIONAL_ADD_COMMAND_AMOUNT = 5;
-    public static final int RESIDENT = 1;
-    public static final int NONRESIDENT = 2;
-    public static final int TRISTATE = 3;
-    public static final int INTERNATIONAL = 4;
-    public static final int RESIDENT_CREDIT_CHECKNUM = 3;
-    public static final int NONRESIDENT_CREDIT_CHECKNUM = 3;
-    public static final int INTERNATIONAL_CREDIT_CHECKNUM = 3;
-    public static final int ZERO = 0;
+    private static final int EMPTY_NUM = 0;
+    private static final int RESIDENT_ADD_COMMAND_AMOUNT = 4;
+    private static final int NONRESIDENT_ADD_COMMAND_AMOUNT = 4;
+    private static final int TRISTATE_ADD_COMMAND_AMOUNT = 5;
+    private static final int INTERNATIONAL_ADD_COMMAND_AMOUNT = 5;
+    private static final int RESIDENT = 1;
+    private static final int NONRESIDENT = 2;
+    private static final int TRISTATE = 3;
+    private static final int INTERNATIONAL = 4;
+    private static final int RESIDENT_CREDIT_CHECKNUM = 3;
+    private static final int NONRESIDENT_CREDIT_CHECKNUM = 3;
+    private static final int INTERNATIONAL_CREDIT_CHECKNUM = 3;
+    private static final int ZERO = 0;
 
     private Roster roster = new Roster();
     /** Runs a loop that takes in a certain amount of arguments, it can be terminated by entering Q into the

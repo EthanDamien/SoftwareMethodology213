@@ -4,8 +4,8 @@ public class Resident extends Student{
 
     private double financialAid;
 
-    public static final int CREDIT_HOUR = 404;
-    public static final int FULL_TUIT = 12536;
+    private static final int CREDIT_HOUR = 404;
+    private static final int FULL_TUIT = 12536;
 
 
     public Resident(String name, String major, int credits){

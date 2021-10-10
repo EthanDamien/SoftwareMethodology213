@@ -4,8 +4,8 @@ public class Roster {
 
     private Student[] roster;
     private int size;
-    public static final int NOT_FOUND = -1;
-    public static final int SAME_NAME = 0;
+    private static final int NOT_FOUND = -1;
+    private static final int SAME_NAME = 0;
     public static final int EMPTY = 0;
 
     public Roster(){

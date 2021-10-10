@@ -1,11 +1,21 @@
 package project_2;
 
-
+/**
+ * The profile of a Student which contains their name and major
+ * @author Kevin Cubillos, Ethan Chang
+ */
 public class Profile {
 
+    /** The name of a student */
     private String name;
+    /** The major of the student */
     private Major major;
 
+    /**
+     * The constructor where both name and major are known.
+     * @param name the name of the student
+     * @param major the major of the student
+     */
     public Profile(String name, String major){
         this.name = name;
 
