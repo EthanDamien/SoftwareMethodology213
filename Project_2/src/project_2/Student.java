@@ -13,6 +13,7 @@ public class Student {
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(FORMAT);
     public static final int MIN_FULL_TIME = 12;
     public static final int MAX_CREDITS = 24;
+    public static final int MIN_CREDITS = 3;
     public static final int CREDIT_EXCEED = 16;
     public static final int UNI_FEE = 3268;
     public static final double PART_TIME_PERCENT = 0.8;
@@ -70,8 +71,6 @@ public class Student {
     }
 
     public boolean makePayment(double amount, Date date){
-
-
         tuition = tuition - amount;
         totalPayment += amount;
         lastPaymentDate = date;

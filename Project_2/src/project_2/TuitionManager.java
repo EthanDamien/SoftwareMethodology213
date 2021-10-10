@@ -311,7 +311,7 @@ public class TuitionManager {
      */
     private boolean isValidCreditNum(String creditString, boolean isInternational){
         int credit = Integer.parseInt(creditString);
-        if(credit > 24){
+        if(credit > Student.MAX_CREDITS){
             System.out.println("Credit hours exceed the maximum 24.");
             return false;
         }
@@ -319,11 +319,11 @@ public class TuitionManager {
             System.out.println("Credit hours cannot be negative.");
             return false;
         }
-        else if(credit < 3){
+        else if(credit < Student.MIN_CREDITS){
             System.out.println("Minimum credit hours is 3.");
             return false;
         }
-        else if(credit < 12 && isInternational){
+        else if(credit < Student.MIN_FULL_TIME && isInternational){
             System.out.println("International students must enroll at least 12 credits.");
             return false;
         }
