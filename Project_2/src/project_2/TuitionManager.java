@@ -39,7 +39,7 @@ public class TuitionManager {
     public static final int NONRESIDENT_CREDIT_CHECKNUM = 3;
     public static final int INTERNATIONAL_CREDIT_CHECKNUM = 3;
 
-    Roster roster = new Roster();
+    private Roster roster = new Roster();
     /** Runs a loop that takes in a certain amount of arguments, it can be terminated by entering Q into the
      * Command Line
      */
@@ -66,7 +66,7 @@ public class TuitionManager {
      * @param input the input array Index 0 = Instruction, 1 = Name, 2 = Author, 3 = Genre, 4 = Date
      * @return returns false if instruction is "Q"
      */
-    public boolean checkInstruction(String[] input){
+    private boolean checkInstruction(String[] input){
         switch (input[0]){
             case "Q":
                 System.out.println("Collection Manager Terminated");
@@ -279,13 +279,8 @@ public class TuitionManager {
                 roster.printByName();
                 break;
             case 3:
-                int count = roster.checkPaidCount();
-                if(count == Roster.EMPTY) {
-                    System.out.println("Student Roster is Empty!");
-                    return;
-                }
                 System.out.println("* list of students made payments ordered by payment date **");
-                roster.printByPaymentDate(count);
+                roster.printByPaymentDate();
                 break;
             default:
                 break;

@@ -103,24 +103,14 @@ public class Roster {
     }
 
 
-    public boolean print(){
-        if(size == EMPTY){
-            return false;
-        }
+    public void print(){
 
         for(int i = 0; i < size; i++){
             System.out.println(roster[i].toString());
         }
-
-        return true;
-
     }
 
-    public boolean printByName(){
-
-        if(size == EMPTY){
-            return false;
-        }
+    public void printByName(){
 
         mergeSort(roster, 0, size-1, 2);
 
@@ -128,14 +118,14 @@ public class Roster {
             System.out.println(roster[i].toString());
         }
 
-        return true;
-
     }
 
-    public boolean printByPaymentDate(int count){
-
-        if(count == EMPTY){
-            return false;
+    public void printByPaymentDate(){
+        int count = 0;
+        for(int i = 0; i < size; i++) {
+            if (roster[i].getTotalPayment() > 0) {
+                count++;
+            }
         }
 
         Student[] paid = new Student[count];
@@ -152,20 +142,8 @@ public class Roster {
             System.out.println(student.toString());
         }
 
-
-        return true;
-
     }
 
-    public int checkPaidCount(){
-        int count = 0;
-        for(int i = 0; i < size; i++){
-            if(roster[i].getTotalPayment() > 0){
-                count++;
-            }
-        }
-        return count;
-    }
 
     private void mergeSort(Student[] temp, int l, int r, int order){
         if(l >= r){
