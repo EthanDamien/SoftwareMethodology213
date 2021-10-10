@@ -16,8 +16,8 @@ public class International extends NonResident{
         if(getCredits() > MIN_CREDITS){
             setCredits(MIN_CREDITS);
         }
-        clearDate();
-        clearTotalPayment();
+        setDate(null);
+        setTotalPayment(0);
         setTuition(0);
         studyingAbroad = !studyingAbroad;
         tuitionDue();

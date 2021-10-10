@@ -231,8 +231,8 @@ public class TuitionManager {
             }
             String name = input[1], major = input[2];
             Double paymentAmount = Double.parseDouble(input[3]);
-            Student temp = new Student(name, major, paymentAmount, date);
-            Student found = roster.makePayment(temp);
+            Student temp = new Student(name, major);
+            Student found = roster.getAStudent(temp);
             if(found == null)
                 return;
             if(paymentAmount > found.getTuition()){
