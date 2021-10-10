@@ -38,11 +38,20 @@ public class Profile {
 
     }
 
+    /**
+     * Makes a string representation of a Student's profile
+     * @return the string representation
+     */
     @Override
     public String toString(){
         return name + "::" + major;
     }
 
+    /**
+     * Checks equality between two Profiles by name and major
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj){
         if(obj == this){
@@ -55,14 +64,20 @@ public class Profile {
 
         Profile temp =  (Profile) obj;
         return name.equals(temp.getName()) && major == temp.getMajor();
-
-
     }
 
+    /**
+     * Getter for name
+     * @return profile name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Getter for major
+     * @return profile major
+     */
     public Major getMajor(){
         return major;
     }
