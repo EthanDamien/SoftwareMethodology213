@@ -1,7 +1,11 @@
 package project_2;
 import java.text.DecimalFormat;
 
-
+/**
+ * The superclass that represents a Student
+ * Has subclasses which are Resident and NonResident
+ * @author Kevin Cubillos, Ethan Chang
+ */
 public class Student {
     /** The profile of the student */
     private Profile profile;
