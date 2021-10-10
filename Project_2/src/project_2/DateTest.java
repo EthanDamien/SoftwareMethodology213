@@ -1,22 +1,12 @@
-package project_1;
+package project_2;
 
-import  org.junit.Assert;
-
-import java.io.IOException;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-/**
- * The class is a jUnit 4 test class that runs tests on the isValid method located in Date
- * @author Ethan Chang, Kevin Cubillos
- */
 
 public class DateTest {
     /** For test case #1 */
-    private static final String DATEBEFORE = "07/25/1969";
+    private static final String DATEBEFORE = "12/31/2020";
     /** For test case #2 */
     private static final String DATEAFTER = "12/31/2021";
     /** For test case #3 */
@@ -24,10 +14,9 @@ public class DateTest {
     /** For test case #4 */
     private static final String DATEFEBNONLEAP = "02/29/2021";
     /** For test case #5 */
-    private static final String[] DATE31 = {"01/31/2021","03/31/2021","05/31/2021","07/31/2021","08/31/2021",
-            "10/31/2020","12/31/2020"};
+    private static final String[] DATE31 = {"01/31/2021","03/31/2021","05/31/2021","07/31/2021","08/31/2021"};
     /** For test case #6 */
-    private static final String[] DATE30 = {"04/31/2021","06/31/2021","09/31/2021","11/31/2020"};
+    private static final String[] DATE30 = {"04/31/2021","06/31/2021","09/31/2021"};
     /** For test case #7 */
     private static final String[] DATE1TO12 = {"00/1/2021","13/1/2021"};
     /** For test case #8 */
@@ -39,7 +28,7 @@ public class DateTest {
      */
     @Test
     public void isValidBeforeTest() {
-        System.out.println("\nDay after today: This should return false");
+        System.out.println("\nDay before 2021: This should return false");
         boolean actual =  new Date(DATEBEFORE).isValid();
         System.out.println(DATEBEFORE + ", " + actual);
         Assert.assertEquals(false,actual);
@@ -51,7 +40,7 @@ public class DateTest {
      */
     @Test
     public void isValidAfterTest() {
-        System.out.println("\nDay before 1970: This should return false");
+        System.out.println("\nDay After Today: This should return false");
         boolean actual =  new Date(DATEAFTER).isValid();
         System.out.println(DATEAFTER + ", " + actual);
         Assert.assertEquals(false,actual);
@@ -62,11 +51,11 @@ public class DateTest {
      * Test Case #3
      */
     @Test
-    public void isValidFeb28Test() {
-        System.out.println("\nFeb 28 on non-Leap Year: This should return true");
-        boolean actual =  new Date(DATEFEB28NONLEAP).isValid();
-    System.out.println(DATEFEB28NONLEAP + ", " + actual);
-        Assert.assertEquals(true,actual);
+    public void isValidFeb29Test() {
+        System.out.println("\nFeb 29 on non-Leap Year: This should return true");
+        boolean actual =  new Date(DATEFEBNONLEAP).isValid();
+        System.out.println(DATEFEBNONLEAP + ", " + actual);
+        Assert.assertEquals(false,actual);
     }
 
     /**
@@ -74,11 +63,11 @@ public class DateTest {
      * Test Case #4
      */
     @Test
-    public void isValidFeb29Test() {
-        System.out.println("\nFeb 29 on non-Leap Year: This should return false");
-        boolean actual =  new Date(DATEFEBNONLEAP).isValid();
-        System.out.println(DATEFEBNONLEAP + ", " + actual);
-        Assert.assertEquals(false,actual);
+    public void isValidFeb28Test() {
+        System.out.println("\nFeb 28 on non-Leap Year: This should return True");
+        boolean actual =  new Date(DATEFEB28NONLEAP).isValid();
+        System.out.println(DATEFEB28NONLEAP + ", " + actual);
+        Assert.assertEquals(true,actual);
     }
 
     /**
@@ -136,6 +125,4 @@ public class DateTest {
             Assert.assertEquals(false,actual);
         }
     }
-
-
 }

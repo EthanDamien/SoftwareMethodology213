@@ -270,9 +270,15 @@ public class TuitionManager {
      */
     private void setFinancialAid(String[] input) {
         if(input.length != 4){
+            if(input.length == 3){
+                System.out.println("Payment amount missing.");
+                return;
+            }
             System.out.println("Invalid command!");
+            return;
         }
-        String financialAid = input[3];
+        String name = input[1], major = input[2];
+        Double financialAid = Double.parseDouble(input[3]);
     }
 
     /**
