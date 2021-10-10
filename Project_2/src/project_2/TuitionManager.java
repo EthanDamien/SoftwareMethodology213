@@ -38,6 +38,7 @@ public class TuitionManager {
     public static final int RESIDENT_CREDIT_CHECKNUM = 3;
     public static final int NONRESIDENT_CREDIT_CHECKNUM = 3;
     public static final int INTERNATIONAL_CREDIT_CHECKNUM = 3;
+    public static final int ZERO = 0;
 
     private Roster roster = new Roster();
     /** Runs a loop that takes in a certain amount of arguments, it can be terminated by entering Q into the
@@ -69,7 +70,7 @@ public class TuitionManager {
     private boolean checkInstruction(String[] input){
         switch (input[0]){
             case "Q":
-                System.out.println("Collection Manager Terminated");
+                System.out.println("Tuition Manager terminated.");
                 return false;
             case "AR":
                 addStudent(input, 1);
@@ -228,10 +229,25 @@ public class TuitionManager {
             if(input.length == 5){
                 date = new Date(input[4]);
             }
-            Student temp = new Student(input[1], input[2], Double.parseDouble(input[3]), date);
-            if(!roster.makePayment(temp)){
+            String name = input[1], major = input[2];
+            Double paymentAmount = Double.parseDouble(input[3]);
+            Student temp = new Student(name, major, paymentAmount, date);
+            Student found = roster.makePayment(temp);
+            if(found == null)
+                return;
+            if(paymentAmount > found.getTuition()){
+                System.out.println("Amount is greater than amount due.");
                 return;
             }
+            if(paymentAmount <= ZERO){
+                System.out.println("Invalid amount.");
+                return;
+            }
+            if(!date.isValid()){
+                System.out.println("Payment date invalid.");
+                return;
+            }
+            found.makePayment(paymentAmount, date);
         }
     }
 

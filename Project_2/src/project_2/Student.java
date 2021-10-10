@@ -10,7 +10,6 @@ public class Student {
     private double tuition;
 
     public static final String FORMAT = "##,##0.00";
-    public static final int ZERO = 0;
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat(FORMAT);
     public static final int MIN_FULL_TIME = 12;
     public static final int MAX_CREDITS = 24;
@@ -71,18 +70,7 @@ public class Student {
     }
 
     public boolean makePayment(double amount, Date date){
-        if(amount > tuition){
-            System.out.println("Amount is greater than amount due.");
-            return false;
-        }
-        if(amount <= ZERO){
-            System.out.println("Invalid amount.");
-            return false;
-        }
-        if(!date.isValid()){
-            System.out.println("Payment date invalid.");
-            return false;
-        }
+
 
         tuition = tuition - amount;
         totalPayment += amount;

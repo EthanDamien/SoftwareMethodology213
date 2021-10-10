@@ -1,7 +1,5 @@
 package project_2;
 
-import project_1.Album;
-
 public class Roster {
 
     private Student[] roster;
@@ -11,6 +9,7 @@ public class Roster {
     public static final int EMPTY = 0;
 
     public Roster(){
+        //Hello
         roster = new Student[4];
         size = 0;
     }
@@ -28,19 +27,14 @@ public class Roster {
         return NOT_FOUND;
     }
 
-    public boolean makePayment(Student student){
+    public Student makePayment(Student student){
         for(int i = 0; i < size; i++){
             if(roster[i].getProfile().equals(student.getProfile())){
-                if(roster[i].makePayment(student.getTotalPayment(), student.getLastPaymentDate())){
-                    return true;
-                }
-                else{
-                    return false;
-                }
+                return roster[i];
             }
         }
         System.out.println("Student Not Found");
-        return false;
+        return null;
     }
 
 
