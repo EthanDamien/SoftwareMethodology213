@@ -9,7 +9,7 @@ public class Profile {
     /** The name of a student */
     private String name;
     /** The major of the student */
-    private Major major;
+    private String major;
 
     /**
      * The constructor where both name and major are known.
@@ -18,24 +18,7 @@ public class Profile {
      */
     public Profile(String name, String major){
         this.name = name;
-
-        major = major.toUpperCase();
-        if(major.equals("BA")){
-            this.major = Major.BA;
-        }
-        else if(major.equals("CS")){
-            this.major = Major.CS;
-        }
-        else if(major.equals("EE")){
-            this.major = Major.EE;
-        }
-        else if(major.equals("IT")){
-            this.major = Major.IT;
-        }
-        else if(major.equals("ME")){
-            this.major = Major.ME;
-        }
-
+        this.major = major;
     }
 
     /**
@@ -63,7 +46,7 @@ public class Profile {
         }
 
         Profile temp =  (Profile) obj;
-        return name.equals(temp.getName()) && major == temp.getMajor();
+        return name.equals(temp.getName()) && major.equals(temp.getMajor());
     }
 
     /**
@@ -78,7 +61,7 @@ public class Profile {
      * Getter for major
      * @return profile major
      */
-    public Major getMajor(){
+    public String getMajor(){
         return major;
     }
 

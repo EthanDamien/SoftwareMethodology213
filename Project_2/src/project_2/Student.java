@@ -145,7 +145,6 @@ public class Student {
         tuition = tuition - amount;
         totalPayment += amount;
         lastPaymentDate = date;
-        System.out.println("Payment Applied");
     }
 
 

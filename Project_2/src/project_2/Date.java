@@ -86,7 +86,7 @@ public class Date implements Comparable<Date> {
                 || year < TWENTYONE){
             return false;
         }
-        if(this.compareTo(new Date()) == BEFORE){
+        if(this.compareTo(new Date()) >= SAME_DATE){
             return false;
         }
         if(day <= MAX_DAYS - 3){

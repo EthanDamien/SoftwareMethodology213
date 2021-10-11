@@ -14,8 +14,6 @@ public class Resident extends Student{
     private static final int CREDIT_HOUR = 404;
     /** The full tuition of a resident student */
     private static final int FULL_TUIT = 12536;
-    /** The maximum amount of aid a student can receive */
-    public static final double MAX_AID = 10000;
 
     /**
      * Constructor of a Resident where name, major, and credits is known
@@ -27,17 +25,12 @@ public class Resident extends Student{
         super(name, major, credits);
     }
 
-
-    public void setFinancialAid(double financialAid) {
-        this.financialAid = financialAid;
-    }
-
     /**
      * Sets the financial aid of a student and updates tuition
      * @param aid amount of finanical aid
      * @return true if aid was given, false if aid was already given before
      */
-    public boolean giveFinancialAid(int aid){
+    public boolean giveFinancialAid(double aid){
         if(financialAid != 0){
             return false;
         }

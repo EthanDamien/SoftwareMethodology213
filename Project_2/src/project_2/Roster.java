@@ -57,7 +57,6 @@ public class Roster {
         if(index != NOT_FOUND){
             return roster[index];
         }
-        System.out.println("Student Not Found");
         return null;
     }
 
@@ -115,7 +114,9 @@ public class Roster {
     public void calculate() {
 
         for(int i = 0; i < size; i++){
-            roster[i].tuitionDue();
+            if(roster[i].getTuition() == 0 && roster[i].getLastPaymentDate() == null) {
+                roster[i].tuitionDue();
+            }
         }
 
     }
