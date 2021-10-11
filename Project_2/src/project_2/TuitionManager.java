@@ -28,26 +28,26 @@ import java.util.StringTokenizer;
  */
 public class TuitionManager {
 
-    /** Checks if payment is negative */
+    /** Checks if payment is negative. */
     private static final double INVALID_PAY = 0;
-    /** Checks if credits is negative */
+    /** Checks if credits is negative. */
     private static final int INVALID_CREDIT = 0;
-    /** Index of the name in profile created through command line */
+    /** Index of the name in profile created through command line. */
     private static final int NAME_INDEX = 0;
-    /** Index of the major in profile created through command line */
+    /** Index of the major in profile created through command line. */
     private static final int MAJOR_INDEX = 1;
-    /** Printing type for standard print */
+    /** Printing type for standard print. */
     private static final int PRINT = 1;
-    /** Printing type for printing by order of names */
+    /** Printing type for printing by order of names. */
     private static final int PRINT_NAME = 2;
-    /** Printing type for printing by order of payment date */
+    /** Printing type for printing by order of payment date. */
     private static final int PRINT_DATE = 3;
-    /** The roster of students being managed */
+    /** The roster of students being managed. */
     private Roster roster = new Roster();
 
     /**
-     * The public method that runs the client
-     * Uses StringTokenizer to decode command line
+     * The public method that runs the client.
+     * Uses StringTokenizer to decode command line.
      */
     public void run(){
         System.out.println("Tuition Manager starts running.");
@@ -62,10 +62,10 @@ public class TuitionManager {
     }
 
     /**
-     * Checks the instruction and executes corresponding procedures
-     * Does nothing if command is invalid
-     * @param st the string tokenizer currently before command token
-     * @return returns true to continue running, or false to stop running client
+     * Checks the instruction and executes corresponding procedures.
+     * Does nothing if command is invalid.
+     * @param st the string tokenizer currently before command token.
+     * @return returns true to continue running, or false to stop running client.
      */
     private boolean checkInstruction(StringTokenizer st){
         String command;
@@ -134,9 +134,9 @@ public class TuitionManager {
     }
 
     /**
-     * Checks if a profile of a student is valid
-     * @param st the string tokenizer currently before name token
-     * @return an array containing name and major, null if invalid
+     * Checks if a profile of a student is valid.
+     * @param st the string tokenizer currently before name token.
+     * @return an array containing name and major, null if invalid.
      */
     private String[] validProfile(StringTokenizer st){
         String name;
@@ -156,9 +156,9 @@ public class TuitionManager {
     }
 
     /**
-     * Checks if a major is valid
-     * @param major major to be checked
-     * @return the string of major in correct format, null if invalid
+     * Checks if a major is valid.
+     * @param major major to be checked.
+     * @return the string of major in correct format, null if invalid.
      */
     private String validMajor(String major){
         String caseMajor = major.toUpperCase();
@@ -171,10 +171,10 @@ public class TuitionManager {
     }
 
     /**
-     * Checks if amount of credits is valid
-     * @param st the string tokenizer currently before credits token
-     * @param isInternational tracks if student is international
-     * @return amount of credits, INVALID_CREDIT ( = 0) if invalid
+     * Checks if amount of credits is valid.
+     * @param st the string tokenizer currently before credits token.
+     * @param isInternational tracks if student is international.
+     * @return amount of credits, INVALID_CREDIT ( = 0) if invalid.
      */
     private int validCredit(StringTokenizer st, boolean isInternational){
         int credits;
@@ -207,9 +207,9 @@ public class TuitionManager {
     }
 
     /**
-     * Adds a Resident to roster if student does not exist already
-     * @param profile profile of student
-     * @param credits amount of credits
+     * Adds a Resident to roster if student does not exist already.
+     * @param profile profile of student.
+     * @param credits amount of credits.
      */
     private void addResident(String[] profile, int credits){
         Resident res = new Resident(profile[NAME_INDEX], profile[MAJOR_INDEX], credits);
@@ -224,9 +224,9 @@ public class TuitionManager {
     }
 
     /**
-     * Adds a NonResident to roster if student does not exist already
-     * @param profile profile of student
-     * @param credits amount of credits
+     * Adds a NonResident to roster if student does not exist already.
+     * @param profile profile of student.
+     * @param credits amount of credits.
      */
     private void addNonResident(String[] profile, int credits){
         NonResident nonRes = new NonResident(profile[NAME_INDEX], profile[MAJOR_INDEX], credits);
@@ -240,10 +240,10 @@ public class TuitionManager {
     }
 
     /**
-     * Adds an International to roster if student does not exist already
-     * @param st the string tokenizer currently before abroad boolean token
-     * @param profile profile of student
-     * @param credits amount of credits
+     * Adds an International to roster if student does not exist already.
+     * @param st the string tokenizer currently before abroad boolean token.
+     * @param profile profile of student.
+     * @param credits amount of credits.
      */
     private void addInternational(StringTokenizer st, String[] profile, int credits){
         boolean abroad = st.nextToken().equalsIgnoreCase("TRUE");
@@ -258,10 +258,10 @@ public class TuitionManager {
     }
 
     /**
-     * Adds a TriState to roster if student does not exist already
-     * @param st the string tokenizer currently before state token
-     * @param profile profile of student
-     * @param credits amount of credits
+     * Adds a TriState to roster if student does not exist already.
+     * @param st the string tokenizer currently before state token.
+     * @param profile profile of student.
+     * @param credits amount of credits.
      */
     private void addTriState(StringTokenizer st, String[] profile, int credits){
         String state;
@@ -285,9 +285,9 @@ public class TuitionManager {
     }
 
     /**
-     * Checks if a state is a valid tri-state
-     * @param state the state to be checked
-     * @return the string of tri-state in correct format, null if invalid
+     * Checks if a state is a valid tri-state.
+     * @param state the state to be checked.
+     * @return the string of tri-state in correct format, null if invalid.
      */
     private String validTriState(String state){
         state = state.toUpperCase();
@@ -299,9 +299,9 @@ public class TuitionManager {
     }
 
     /**
-     * Make a payment towards tuition for a student if payment amount exists and is valid
-     * @param st the string tokenizer currently before payment amount token
-     * @param profile profile of target student
+     * Make a payment towards tuition for a student if payment amount exists and is valid.
+     * @param st the string tokenizer currently before payment amount token.
+     * @param profile profile of target student.
      */
     private void payTuition(StringTokenizer st, String[] profile){
         double payment;
@@ -339,9 +339,9 @@ public class TuitionManager {
     }
 
     /**
-     * Give a resident student financial aid if are full-time and never received aid yet
-     * @param st the string tokenizer currently before financial aid token
-     * @param profile profile of target student
+     * Give a resident student financial aid if are full-time and never received aid yet.
+     * @param st the string tokenizer currently before financial aid token.
+     * @param profile profile of target student.
      */
     private void setFinancialAid(StringTokenizer st, String[] profile){
         double aid;
@@ -376,9 +376,9 @@ public class TuitionManager {
     }
 
     /**
-     * Checks if financial aid amount is valid
-     * @param financialAid financial aid amount
-     * @return true if valid, false otherwise
+     * Checks if financial aid amount is valid.
+     * @param financialAid financial aid amount.
+     * @return true if valid, false otherwise.
      */
     private boolean isValidFinancialAid(double financialAid){
         if(financialAid <= 0 || financialAid > Resident.MAX_AID){
@@ -389,8 +389,8 @@ public class TuitionManager {
     }
 
     /**
-     * Sets an International student to be studying abroad if they exist in roster
-     * @param profile profile of target student
+     * Sets an International student to be studying abroad if they exist in roster.
+     * @param profile profile of target student.
      */
     private void setAbroadStatus(String[] profile){
         Student temp = new Student(profile[NAME_INDEX], profile[MAJOR_INDEX]);
@@ -404,8 +404,8 @@ public class TuitionManager {
     }
 
     /**
-     * Removes a student from the roster if they exist
-     * @param profile profile of target student
+     * Removes a student from the roster if they exist.
+     * @param profile profile of target student.
      */
     private void removeStudent(String[] profile){
         Student temp = new Student(profile[NAME_INDEX], profile[MAJOR_INDEX]);
@@ -418,8 +418,8 @@ public class TuitionManager {
     }
 
     /**
-     * Prints the roster given the type of order
-     * @param type the type of printing wanted
+     * Prints the roster given the type of order.
+     * @param type the type of printing wanted.
      */
     private void printRoster(int type){
         if(roster.getSize() == Roster.EMPTY){

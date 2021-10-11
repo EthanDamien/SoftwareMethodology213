@@ -1,35 +1,35 @@
 package project_2;
 
 /**
- * The subclass that represents a resident student
- * A subclass of Student
+ * The subclass that represents a resident student.
+ * A subclass of Student.
  * @author Kevin Cubillos, Ethan Chang
  */
 public class Resident extends Student{
 
-    /** The financial aid a resident student has */
+    /** The financial aid a resident student has. */
     private double financialAid;
 
-    /** The credit per hour charge */
+    /** The credit per hour charge. */
     private static final int CREDIT_HOUR = 404;
-    /** The full tuition of a resident student */
+    /** The full tuition of a resident student. */
     private static final int FULL_TUIT = 12536;
     public static final int MAX_AID = 10000;
 
     /**
-     * Constructor of a Resident where name, major, and credits is known
-     * @param name the name of student
-     * @param major the major of student
-     * @param credits the amount of credits
+     * Constructor of a Resident where name, major, and credits is known.
+     * @param name the name of student.
+     * @param major the major of student.
+     * @param credits the amount of credits.
      */
     public Resident(String name, String major, int credits){
         super(name, major, credits);
     }
 
     /**
-     * Sets the financial aid of a student and updates tuition
-     * @param aid amount of finanical aid
-     * @return true if aid was given, false if aid was already given before
+     * Sets the financial aid of a student and updates tuition.
+     * @param aid amount of finanical aid.
+     * @return true if aid was given, false if aid was already given before.
      */
     public boolean giveFinancialAid(double aid){
         if(financialAid != 0){
@@ -41,7 +41,7 @@ public class Resident extends Student{
     }
 
     /**
-     * Computes tuition due for a resident student
+     * Computes tuition due for a resident student.
      */
     @Override
     public void tuitionDue(){
@@ -61,8 +61,8 @@ public class Resident extends Student{
     }
 
     /**
-     * Makes a string representation of a Resident
-     * @return the string representation
+     * Makes a string representation of a Resident.
+     * @return the string representation.
      */
     @Override
     public String toString(){

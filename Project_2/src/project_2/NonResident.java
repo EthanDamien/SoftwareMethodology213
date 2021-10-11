@@ -1,30 +1,30 @@
 package project_2;
 
 /**
- * The subclass that represents a non-resident student
- * A subclass of Student
- * Also a superclass of TriState and International
+ * The subclass that represents a non-resident student.
+ * A subclass of Student.
+ * Also a superclass of TriState and International.
  * @author Kevin Cubillos, Ethan Chang
  */
 public class NonResident extends Student{
 
-    /** The credit per hour charge */
+    /** The credit per hour charge. */
     public static final int CREDIT_HOUR = 966;
-    /** The full tuition of a non-resident student */
+    /** The full tuition of a non-resident student. */
     public static final int FULL_TUIT = 29737;
 
     /**
-     * Constructor of a NonResident where name, major, and credits is known
-     * @param name the name of student
-     * @param major the major of student
-     * @param credits the amount of credits
+     * Constructor of a NonResident where name, major, and credits is known.
+     * @param name the name of student.
+     * @param major the major of student.
+     * @param credits the amount of credits.
      */
     public NonResident(String name, String major, int credits){
         super(name, major, credits);
     }
 
     /**
-     * Computes tuition due for a non-resident student
+     * Computes tuition due for a non-resident student.
      */
     @Override
     public void tuitionDue() {
@@ -45,8 +45,8 @@ public class NonResident extends Student{
     }
 
     /**
-     * Makes a string representation of a NonResident
-     * @return the string representation
+     * Makes a string representation of a NonResident.
+     * @return the string representation.
      */
     @Override
     public String toString(){

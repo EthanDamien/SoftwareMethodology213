@@ -1,23 +1,23 @@
 package project_2;
 
 /**
- * A class that represents a Roster of Students
+ * A class that represents a Roster of Students.
  * @author Kevin Cubillos, Ethan Chang
  */
 public class Roster {
-    /** The list of students for the roster */
+    /** The list of students for the roster. */
     private Student[] roster;
-    /** The number of students in the array (neglects null elements)*/
+    /** The number of students in the array (neglects null elements). */
     private int size;
-    /** represents a student could not be found */
+    /** represents a student could not be found. */
     private static final int NOT_FOUND = -1;
-    /** represents when two students have the same name */
+    /** represents when two students have the same name. */
     private static final int SAME_NAME = 0;
-    /** represents when the roster is empty */
+    /** represents when the roster is empty. */
     public static final int EMPTY = 0;
 
     /**
-     * Basic constructor that sets the capacity of roster to 4
+     * Basic constructor that sets the capacity of roster to 4.
      */
     public Roster(){
         roster = new Student[4];
@@ -25,17 +25,17 @@ public class Roster {
     }
 
     /**
-     * Getter for current size of roster
-     * @return size of roster
+     * Getter for current size of roster.
+     * @return size of roster.
      */
     public int getSize() {
         return size;
     }
 
     /**
-     * Find a student based on name and major
-     * @param student the target student
-     * @return the index of target student
+     * Find a student based on name and major.
+     * @param student the target student.
+     * @return the index of target student.
      */
     private int find(Student student){
         for(int i = 0; i < size; i++){
@@ -47,10 +47,10 @@ public class Roster {
     }
 
     /**
-     * Finds a student and returns it
-     * This method returns
-     * @param student the target student
-     * @return the target student, null if not found
+     * Finds a student and returns it.
+     * This method returns.
+     * @param student the target student.
+     * @return the target student, null if not found.
      */
     public Student getAStudent(Student student){
         int index = find(student);
@@ -61,7 +61,7 @@ public class Roster {
     }
 
     /**
-     * Updates capacity of roster by increasing it by 4
+     * Updates capacity of roster by increasing it by 4.
      */
     private void grow(){
         Student[] temp = new Student[size+4];
@@ -73,9 +73,9 @@ public class Roster {
     }
 
     /**
-     * Adds a student to the roster
-     * @param student the new student being added
-     * @return true if student was added, false if student already exists
+     * Adds a student to the roster.
+     * @param student the new student being added.
+     * @return true if student was added, false if student already exists.
      */
     public boolean add(Student student){
         if(find(student) != NOT_FOUND){
@@ -90,10 +90,10 @@ public class Roster {
     }
 
     /**
-     * Removes a student from the roster
-     * Keeps the order of students the same after the deletion happens
-     * @param student the target student
-     * @return true if student was deleted, false if student does not exist
+     * Removes a student from the roster.
+     * Keeps the order of students the same after the deletion happens.
+     * @param student the target student.
+     * @return true if student was deleted, false if student does not exist.
      */
     public boolean remove(Student student){
         int index = find(student);
@@ -109,7 +109,7 @@ public class Roster {
     }
 
     /**
-     * Calculates the tuition that is due for each student
+     * Calculates the tuition that is due for each student.
      */
     public void calculate() {
 
@@ -123,7 +123,7 @@ public class Roster {
 
 
     /**
-     * Prints all students in roster
+     * Prints all students in roster.
      */
     public void print(){
 
@@ -133,7 +133,7 @@ public class Roster {
     }
 
     /**
-     * Prints all students by name in alphabetical order
+     * Prints all students by name in alphabetical order.
      */
     public void printByName(){
 
@@ -146,8 +146,8 @@ public class Roster {
     }
 
     /**
-     * Prints all students in order from oldest to youngest latest payment date
-     * Includes only students who made at least one payment
+     * Prints all students in order from oldest to youngest latest payment date.
+     * Includes only students who made at least one payment.
      */
     public void printByPaymentDate(){
         int count = 0;
@@ -175,10 +175,10 @@ public class Roster {
 
     /**
      * Merge Sort algorithm to sort collections based on order.
-     * @param temp roster to be sorted
-     * @param l left index of current sub-array
-     * @param r right index of current sub-array
-     * @param order type of order for sort: 1 for payment date, 2 for name
+     * @param temp roster to be sorted.
+     * @param l left index of current sub-array.
+     * @param r right index of current sub-array.
+     * @param order type of order for sort: 1 for payment date, 2 for name.
      */
     private void mergeSort(Student[] temp, int l, int r, int order){
         if(l >= r){
@@ -201,10 +201,10 @@ public class Roster {
 
     /**
      * Merge Algorithm of MergeSort where genres are compared.
-     * @param temp roster to be sorted
-     * @param l left index of current sub-array
-     * @param m middle index of current sub-array
-     * @param r right index of current sub-array
+     * @param temp roster to be sorted.
+     * @param l left index of current sub-array.
+     * @param m middle index of current sub-array.
+     * @param r right index of current sub-array.
      */
     private void mergeName(Student[] temp, int l, int m, int r){
         int sizeL = m - l + 1;
@@ -248,10 +248,10 @@ public class Roster {
 
     /**
      * Merge Algorithm of MergeSort where release dates are compared.
-     * @param temp a temp sub-array of roster to be sorted
-     * @param l left index of current sub-array
-     * @param m middle index of current sub-array
-     * @param r right index of current sub-array
+     * @param temp a temp sub-array of roster to be sorted.
+     * @param l left index of current sub-array.
+     * @param m middle index of current sub-array.
+     * @param r right index of current sub-array.
      */
     private void mergeDate(Student[] temp, int l, int m, int r){
         int sizeL = m - l + 1;
