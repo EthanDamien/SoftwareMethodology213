@@ -3,6 +3,10 @@ package project_2;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * The test class for the International Class.
+ * @author Kevin Cubillos, Ethan Chang
+ */
 public class InternationalTest {
     International international;
     private static final double NOT_ABROAD_TUITION = 35655.0;

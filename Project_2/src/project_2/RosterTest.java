@@ -3,6 +3,10 @@ package project_2;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * The test class for the Roster Class.
+ * @author Kevin Cubillos, Ethan Chang
+ */
 public class RosterTest {
     Roster roster = new Roster();
 

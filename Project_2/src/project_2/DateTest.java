@@ -3,7 +3,10 @@ package project_2;
 import org.junit.Assert;
 import org.junit.Test;
 
-
+/**
+ * The test class for the Date Class.
+ * @author Kevin Cubillos, Ethan Chang
+ */
 public class DateTest {
     /** For test case #1 */
     private static final String DATEBEFORE = "12/31/2020";
