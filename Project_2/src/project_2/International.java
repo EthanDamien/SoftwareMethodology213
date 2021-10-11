@@ -38,7 +38,7 @@ public class International extends NonResident{
         setDate(null);
         setTotalPayment(0);
         setTuition(0);
-        studyingAbroad = !studyingAbroad;
+        studyingAbroad = true;
         tuitionDue();
     }
 
@@ -47,8 +47,14 @@ public class International extends NonResident{
      */
     @Override
     public void tuitionDue(){
-        int tuition = studyingAbroad ? 0 : FULL_TUIT;
-        setTuition(tuition + UNI_FEE + ADD_FEE);
+        if(studyingAbroad){
+            setTuition(UNI_FEE + ADD_FEE);
+        }
+        else{
+            int credits = getCredits();
+            int excess = credits > CREDIT_EXCEED ? credits % CREDIT_EXCEED * CREDIT_HOUR : 0;
+            setTuition(FULL_TUIT + excess +  UNI_FEE + ADD_FEE);
+        }
     }
 
     /**

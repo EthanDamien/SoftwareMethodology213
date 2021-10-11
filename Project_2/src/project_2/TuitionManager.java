@@ -301,7 +301,15 @@ public class TuitionManager {
             System.out.println("Invalid command!");
             return;
         }
-        String isAbroad = input[3];
+        String name = input[1], major = input[2].toUpperCase();
+        Student temp = new Student(name, major);
+        Student found = roster.getAStudent(temp);
+        if(found == null){
+            System.out.println("Couldn't find the international student.");
+            return;
+        }
+        ((International) found).setStudyingAbroad();
+        System.out.println("Tuition updated.");
 
     }
 

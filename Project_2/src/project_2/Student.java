@@ -32,7 +32,7 @@ public class Student {
     public static final int CREDIT_EXCEED = 16;
     /** University fee */
     public static final int UNI_FEE = 3268;
-    /** Percentage of tuition for part-time students */
+    /** Percentage of university fee for part-time students */
     public static final double PART_TIME_PERCENT = 0.8;
 
     /**
