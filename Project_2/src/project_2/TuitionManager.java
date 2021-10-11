@@ -399,6 +399,10 @@ public class TuitionManager {
             System.out.println("Couldn't find the international student.");
             return;
         }
+        if(!(found instanceof International)){
+            System.out.println("Not an international student.");
+            return;
+        }
         ((International) found).setStudyingAbroad();
         System.out.println("Tuition updated.");
     }

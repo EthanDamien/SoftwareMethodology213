@@ -37,7 +37,7 @@ public class RosterTest {
     }
 
     /**
-     * This tests if the add student method works if a different student is added
+     * This tests if the add student method doesn't work if a different student is added
      */
     @Test
     public void addValidDiffMajor() {
@@ -54,5 +54,13 @@ public class RosterTest {
         Assert.assertTrue(roster.remove(VALID_DEFAULT_STUDENT));
     }
 
+    /**
+     * This tests if the remove student method doesn't work if that student doesn't exist in Roster.
+     */
+    @Test
+    public void removeValidDoesNotExist() {
+        roster.add(VALID_DEFAULT_STUDENT);
+        Assert.assertFalse(roster.remove(VALID_DEFAULT_STUDENT2));
+    }
 
 }
