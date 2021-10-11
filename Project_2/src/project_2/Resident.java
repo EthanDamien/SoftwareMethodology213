@@ -70,7 +70,7 @@ public class Resident extends Student{
         return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:"
                 + Student.DECIMAL_FORMAT.format(tuit) + ":total payment:"
                 + Student.DECIMAL_FORMAT.format(getTotalPayment())
-                + ":payment date: " + date + ":resident" + ((financialAid == 0) ? "" :
+                + ":last payment date: " + date + ":resident" + ((financialAid == 0) ? "" :
                 ":financial aid $" + Student.DECIMAL_FORMAT.format(financialAid));
     }
 }

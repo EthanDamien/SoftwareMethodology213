@@ -52,9 +52,9 @@ public class NonResident extends Student{
     public String toString(){
         String date = getLastPaymentDate() == null ? "--/--/--" : getLastPaymentDate().toString();
 
-        return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due: "
+        return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:"
                 + Student.DECIMAL_FORMAT.format(getTuition()) + ":total payment:"
                 + Student.DECIMAL_FORMAT.format(getTotalPayment())
-                + ":payment date: " + date + ":non-resident";
+                + ":last payment date: " + date + ":non-resident";
     }
 }

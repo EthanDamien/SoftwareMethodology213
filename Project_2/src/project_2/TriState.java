@@ -59,6 +59,6 @@ public class TriState extends NonResident{
         return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:"
                 + Student.DECIMAL_FORMAT.format(getTuition()) + ":total payment:"
                 + Student.DECIMAL_FORMAT.format(getTotalPayment())
-                + ":payment date: " + date + ":non-resident(tri-state):" + state;
+                + ":last payment date: " + date + ":non-resident(tri-state):" + state;
     }
 }

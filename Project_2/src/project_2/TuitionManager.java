@@ -218,7 +218,7 @@ public class TuitionManager {
 
     private void addStudent(Student student){
         if(roster.add(student))
-            System.out.println("Student Added.");
+            System.out.println("Student added.");
         else
             System.out.println("Student is already in the roster.");
     }
@@ -229,7 +229,7 @@ public class TuitionManager {
      */
     private void removeStudent(String[] input) {
         if(input.length != 3){
-            System.out.println("Student is not in the roster");
+            System.out.println("Student is not in the roster.");
             return;
         }
         Student temp = new Student(input[1], input[2].toUpperCase(), EMPTY_NUM);
@@ -237,7 +237,7 @@ public class TuitionManager {
             System.out.println("Student removed from the roster.");
         }
         else{
-            System.out.println("Student is not in the roster");
+            System.out.println("Student is not in the roster.");
         }
 
     }
@@ -272,7 +272,7 @@ public class TuitionManager {
             Student temp = new Student(name, major);
             Student found = roster.getAStudent(temp);
             if(found == null) {
-                System.out.println("Student not in the roster");
+                System.out.println("Student not in the roster.");
                 return;
             }
             if(paymentAmount > found.getTuition()){
@@ -288,7 +288,7 @@ public class TuitionManager {
                 return;
             }
             found.makePayment(paymentAmount, date);
-            System.out.println("Payment Applied");
+            System.out.println("Payment applied.");
         }
     }
 
@@ -331,7 +331,7 @@ public class TuitionManager {
         Student temp = new Student(name, major, ZERO);
         Student found = roster.getAStudent(temp);
         if(found == null){
-            System.out.println("Student not in the roster");
+            System.out.println("Student not in the roster.");
             return;
         }
         if(!isValidFinancialAid(financialAid)){
@@ -377,6 +377,7 @@ public class TuitionManager {
             default:
                 break;
         }
+        System.out.println("* end of roster **");
     }
 
     /**

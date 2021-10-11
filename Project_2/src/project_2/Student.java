@@ -156,6 +156,6 @@ public class Student {
     public String toString(){
         String date = lastPaymentDate == null ? "--/--/--" : lastPaymentDate.toString();
         return profile.toString() + ":" + credits +  " credit hours:tuition due:" + tuition
-                + ":total payment:" + totalPayment + ":payment date: " + date;
+                + ":total payment:" + totalPayment + ":last payment date: " + date;
     }
 }

@@ -27,7 +27,7 @@ public class Profile {
      */
     @Override
     public String toString(){
-        return name + "::" + major;
+        return name + ":" + major;
     }
 
     /**

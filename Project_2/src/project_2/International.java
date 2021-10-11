@@ -67,6 +67,6 @@ public class International extends NonResident{
         return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:"
                 + Student.DECIMAL_FORMAT.format(getTuition())  + ":total payment:"
                 + Student.DECIMAL_FORMAT.format(getTotalPayment())
-                + ":payment date: " + date + ":non-resident:international" + (studyingAbroad ? ":study abroad" : "");
+                + ":last payment date: " + date + ":non-resident:international" + (studyingAbroad ? ":study abroad" : "");
     }
 }
