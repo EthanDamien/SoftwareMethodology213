@@ -77,7 +77,7 @@ public class Date implements Comparable<Date> {
 
     /**
      * Checks if date is a valid Calendar date.
-     * Excludes any dates from the eighties and before.
+     * Excludes any dates from the 2020 and before.
      * @return true if date is valid, false otherwise.
      */
     public boolean isValid() {
