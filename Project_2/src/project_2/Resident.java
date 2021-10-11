@@ -14,6 +14,8 @@ public class Resident extends Student{
     private static final int CREDIT_HOUR = 404;
     /** The full tuition of a resident student */
     private static final int FULL_TUIT = 12536;
+    /** The maximum amount of aid a student can receive */
+    public static final double MAX_AID = 10000;
 
     /**
      * Constructor of a Resident where name, major, and credits is known
@@ -70,7 +72,6 @@ public class Resident extends Student{
      */
     @Override
     public String toString(){
-        //Use DecimalFormat for tuition and last payment fields.
         String date = getLastPaymentDate() == null ? "--/--/--" : getLastPaymentDate().toString();
         double tuit = getTuition() < 0 ? 0 : getTuition();
         return getProfile().toString() + ":" + getCredits() +  " credit hours:tuition due:"
