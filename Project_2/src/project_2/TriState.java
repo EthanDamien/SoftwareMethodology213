@@ -28,7 +28,7 @@ public class TriState extends NonResident{
     public void tuitionDue(){
         int credits = getCredits();
         int whichTime;
-        int triDiscount;
+        int triDiscount = 0;
         double fee;
         int excess = credits > CREDIT_EXCEED ? credits % CREDIT_EXCEED * CREDIT_HOUR : 0;
         if(credits >= MIN_FULL_TIME){
@@ -39,11 +39,12 @@ public class TriState extends NonResident{
             whichTime = credits * CREDIT_HOUR;
             fee = UNI_FEE * PART_TIME_PERCENT;
         }
-        if(state.equals("CT")){
-            triDiscount = 5000;
-        }
-        else{
-            triDiscount = 4000;
+        if(credits >= MIN_FULL_TIME) {
+            if (state.equals("CT")) {
+                triDiscount = 5000;
+            } else {
+                triDiscount = 4000;
+            }
         }
         setTuition(whichTime + excess + fee - triDiscount);
     }
