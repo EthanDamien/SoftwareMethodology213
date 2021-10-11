@@ -26,7 +26,7 @@ public class Roster {
 
     /**
      * Getter for current size of roster
-     * @return
+     * @return size of roster
      */
     public int getSize() {
         return size;
@@ -121,22 +121,6 @@ public class Roster {
 
     }
 
-    /**
-     * Updates the studying abroad status of an international student
-     * @param student the target student
-     * @return true if update was executed, false if student does not exist
-     */
-    public boolean setAbroadStatus(Student student){
-
-        int index = find(student);
-        if(index == NOT_FOUND){
-            return false;
-        }
-
-        International intStu = (International) student;
-        intStu.setStudyingAbroad();
-        return true;
-    }
 
     /**
      * Prints all students in roster

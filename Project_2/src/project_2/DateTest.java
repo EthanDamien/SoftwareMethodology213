@@ -31,7 +31,7 @@ public class DateTest {
         System.out.println("\nDay before 2021: This should return false");
         boolean actual =  new Date(DATEBEFORE).isValid();
         System.out.println(DATEBEFORE + ", " + actual);
-        Assert.assertEquals(false,actual);
+        Assert.assertFalse(actual);
     }
 
     /**
@@ -43,7 +43,7 @@ public class DateTest {
         System.out.println("\nDay After Today: This should return false");
         boolean actual =  new Date(DATEAFTER).isValid();
         System.out.println(DATEAFTER + ", " + actual);
-        Assert.assertEquals(false,actual);
+        Assert.assertFalse(actual);
     }
 
     /**
@@ -55,7 +55,7 @@ public class DateTest {
         System.out.println("\nFeb 29 on non-Leap Year: This should return true");
         boolean actual =  new Date(DATEFEBNONLEAP).isValid();
         System.out.println(DATEFEBNONLEAP + ", " + actual);
-        Assert.assertEquals(false,actual);
+        Assert.assertFalse(actual);
     }
 
     /**
@@ -67,7 +67,7 @@ public class DateTest {
         System.out.println("\nFeb 28 on non-Leap Year: This should return True");
         boolean actual =  new Date(DATEFEB28NONLEAP).isValid();
         System.out.println(DATEFEB28NONLEAP + ", " + actual);
-        Assert.assertEquals(true,actual);
+        Assert.assertTrue(actual);
     }
 
     /**
@@ -80,7 +80,7 @@ public class DateTest {
         for(String data: DATE31) {
             boolean actual =  new Date(data).isValid();
             System.out.println(data + ", " + actual);
-            Assert.assertEquals(true,actual);
+            Assert.assertTrue(actual);
         }
     }
 
@@ -94,7 +94,7 @@ public class DateTest {
         for(String data: DATE30) {
             boolean actual =  new Date(data).isValid();
             System.out.println(data + ", " + actual);
-            Assert.assertEquals(false,actual);
+            Assert.assertFalse(actual);
         }
     }
 
@@ -108,7 +108,7 @@ public class DateTest {
         for(String data: DATE1TO12) {
             boolean actual =  new Date(data).isValid();
             System.out.println(data + ", " + actual);
-            Assert.assertEquals(false,actual);
+            Assert.assertFalse(actual);
         }
     }
 
@@ -122,7 +122,7 @@ public class DateTest {
         for(String data: BADINPUT) {
             boolean actual =  new Date(data).isValid();
             System.out.println(data + ", " + actual);
-            Assert.assertEquals(false,actual);
+            Assert.assertFalse(actual);
         }
     }
 }

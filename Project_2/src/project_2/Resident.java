@@ -14,6 +14,7 @@ public class Resident extends Student{
     private static final int CREDIT_HOUR = 404;
     /** The full tuition of a resident student */
     private static final int FULL_TUIT = 12536;
+    public static final int MAX_AID = 10000;
 
     /**
      * Constructor of a Resident where name, major, and credits is known

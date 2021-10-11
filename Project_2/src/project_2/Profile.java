@@ -32,8 +32,8 @@ public class Profile {
 
     /**
      * Checks equality between two Profiles by name and major
-     * @param obj
-     * @return
+     * @param obj other profile that is being compared with
+     * @return true if equal, false otherwise
      */
     @Override
     public boolean equals(Object obj){
@@ -63,10 +63,6 @@ public class Profile {
      */
     public String getMajor(){
         return major;
-    }
-
-    public static boolean validMajor(){
-        return false;
     }
 
 }

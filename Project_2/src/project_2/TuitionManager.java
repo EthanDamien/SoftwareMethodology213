@@ -23,7 +23,7 @@ import java.util.StringTokenizer;
  *          PN -> print roster sorted by student names
  *          PT -> print only the students who have made payments, ordered by payment dates.
  *
- * @author Ethan Chang, Kevin Cubillos
+ * @author Kevin Cubillos, Ethan Chang
  */
 public class TuitionManager {
     /** Empty number for all use-cases*/
@@ -50,8 +50,6 @@ public class TuitionManager {
     private static final int WILDCARD_INDEX = 4;
     /** Universal Zero Constant*/
     private static final int ZERO = 0;
-    /** The maximum amount of aid a student can receive */
-    private static final double MAX_AID = 10000;
 
     private Roster roster = new Roster();
     /** Runs a loop that takes in a certain amount of arguments, it can be terminated by entering Q into the
@@ -120,13 +118,13 @@ public class TuitionManager {
                 setFinancialAid(input);
                 break;
             case "P":
-                printRoster(input, 1);
+                printRoster(1);
                 break;
             case "PN":
-                printRoster(input, 2);
+                printRoster(2);
                 break;
             case "PT":
-                printRoster(input, 3);
+                printRoster(3);
                 break;
             default:
                 System.out.println("Command '" + input[0] + "' not supported!");
@@ -353,10 +351,9 @@ public class TuitionManager {
 
     /**
      * Prints the roster given the type of print order
-     * @param input the input array for the instruction
      * @param type 1 = no order, 2 = by Names, 3 = those who've paid, ordered by payment date
      */
-    private void printRoster(String[] input, int type) {
+    private void printRoster(int type) {
         if(roster.getSize() == Roster.EMPTY){
             System.out.println("Student roster is empty!");
             return;
@@ -420,7 +417,7 @@ public class TuitionManager {
      * @return true if it's a valid amount
      */
     private boolean isValidFinancialAid(double financialAid){
-        if(financialAid <= 0 || financialAid > MAX_AID){
+        if(financialAid <= 0 || financialAid > Resident.MAX_AID){
             System.out.println("Invalid amount.");
             return false;
         }

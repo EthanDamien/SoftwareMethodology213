@@ -15,7 +15,7 @@ public class RosterTest {
      */
     @Test
     public void addValidDefault() {
-        Assert.assertEquals(true, roster.add(VALID_DEFAULT_STUDENT));
+        Assert.assertTrue(roster.add(VALID_DEFAULT_STUDENT));
     }
 
     /**
@@ -24,7 +24,7 @@ public class RosterTest {
     @Test
     public void addValidSame() {
         roster.add(VALID_DEFAULT_STUDENT);
-        Assert.assertEquals(false, roster.add(VALID_DEFAULT_STUDENT));
+        Assert.assertFalse(roster.add(VALID_DEFAULT_STUDENT));
     }
 
     /**
@@ -33,7 +33,7 @@ public class RosterTest {
     @Test
     public void addValidDiff() {
         roster.add(VALID_DEFAULT_STUDENT2);
-        Assert.assertEquals(true, roster.add(VALID_DEFAULT_STUDENT));
+        Assert.assertTrue(roster.add(VALID_DEFAULT_STUDENT));
     }
 
     /**
@@ -42,7 +42,7 @@ public class RosterTest {
     @Test
     public void addValidDiffMajor() {
         roster.add(VALID_DEFAULT_STUDENT3);
-        Assert.assertEquals(true, roster.add(VALID_DEFAULT_STUDENT));
+        Assert.assertTrue(roster.add(VALID_DEFAULT_STUDENT));
     }
 
     /**
@@ -51,7 +51,7 @@ public class RosterTest {
     @Test
     public void removeValidDefault() {
         roster.add(VALID_DEFAULT_STUDENT);
-        Assert.assertEquals(true, roster.remove(VALID_DEFAULT_STUDENT));
+        Assert.assertTrue(roster.remove(VALID_DEFAULT_STUDENT));
     }
 
 
