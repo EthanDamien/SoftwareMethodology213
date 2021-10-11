@@ -1,5 +1,6 @@
 package project_2;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -26,34 +27,27 @@ import java.util.StringTokenizer;
  * @author Kevin Cubillos, Ethan Chang
  */
 public class TuitionManager {
-    /** Empty number for all use-cases*/
-    private static final int EMPTY_NUM = 0;
-    /** Resident Typenum*/
-    private static final int RESIDENT = 1;
-    /** Non-Resident Typenum*/
-    private static final int NONRESIDENT = 2;
-    /** Tri-State Typenum*/
-    private static final int TRISTATE = 3;
-    /** International Typenum*/
-    private static final int INTERNATIONAL = 4;
-    /** Index location of Name*/
-    private static final int NAME_INDEX = 1;
-    /** Index location of MAJOR*/
-    private static final int MAJOR_INDEX = 2;
-    /** Index location of CREDIT*/
-    private static final int CREDIT_INDEX = 3;
-    /** Index location of STATE*/
-    private static final int STATE_INDEX = 4;
-    /** Index location of ISABROAD*/
-    private static final int ISABROAD_INDEX = 4;
-    /** Index location of WILDCARD*/
-    private static final int WILDCARD_INDEX = 4;
-    /** Universal Zero Constant*/
-    private static final int ZERO = 0;
 
+    /** Checks if payment is negative */
+    private static final double INVALID_PAY = 0;
+    /** Checks if credits is negative */
+    private static final int INVALID_CREDIT = 0;
+    /** Index of the name in profile created through command line */
+    private static final int NAME_INDEX = 0;
+    /** Index of the major in profile created through command line */
+    private static final int MAJOR_INDEX = 1;
+    /** Printing type for standard print */
+    private static final int PRINT = 1;
+    /** Printing type for printing by order of names */
+    private static final int PRINT_NAME = 2;
+    /** Printing type for printing by order of payment date */
+    private static final int PRINT_DATE = 3;
+    /** The roster of students being managed */
     private Roster roster = new Roster();
-    /** Runs a loop that takes in a certain amount of arguments, it can be terminated by entering Q into the
-     * Command Line
+
+    /**
+     * The public method that runs the client
+     * Uses StringTokenizer to decode command line
      */
     public void run(){
         System.out.println("Tuition Manager starts running.");
@@ -63,286 +57,318 @@ public class TuitionManager {
         while(rerun){
             currString = scan.nextLine();
             StringTokenizer st = new StringTokenizer(currString, ",");
-            String[] input = new String[st.countTokens()];
-            int i = 0;
-            while(st.hasMoreTokens()){
-                input[i] = st.nextToken();
-                i++;
+            rerun = checkInstruction(st);
+        }
+    }
+
+    /**
+     * Checks the instruction and executes corresponding procedures
+     * Does nothing if command is invalid
+     * @param st the string tokenizer currently before command token
+     * @return returns true to continue running, or false to stop running client
+     */
+    private boolean checkInstruction(StringTokenizer st){
+        String command;
+        try{
+            command = st.nextToken();
+        }catch (Exception e){
+            return true;
+        }
+
+        if(command.equals("Q")){
+            System.out.println("Tuition Manager terminated.");
+            return false;
+        }
+        if(command.equals("AR") || command.equals("AN") || command.equals("AT") || command.equals("AI") ||
+                command.equals("T") || command.equals("S") || command.equals("F") || command.equals("R")){
+            String[] profile = validProfile(st);
+            if(profile == null){
+                return true;
             }
-            if(input.length != 0)
-                rerun = checkInstruction(input);
-        }
-    }
-
-    /** This checks whether the input is valid, and will call each method that is attributed to each instruction.
-     * @param input the input array Index 0 = Instruction, 1 = Name, 2 = Author, 3 = Genre, 4 = Date
-     * @return returns false if instruction is "Q"
-     */
-    private boolean checkInstruction(String[] input){
-        switch (input[0]){
-            case "Q":
-                System.out.println("Tuition Manager terminated.");
-                return false;
-            case "AR":
-                if(!addSanityCheck(input, RESIDENT)) break;
-                addResident(input);
-                break;
-            case "AN":
-                if(!addSanityCheck(input, NONRESIDENT)) break;
-                addNonResident(input);
-                break;
-            case "AT":
-                if(!addSanityCheck(input, TRISTATE)) break;
-                addTriState(input);
-                break;
-            case "AI":
-                if(!addSanityCheck(input, INTERNATIONAL)) break;
-                addInternational(input);
-                break;
-            case "R":
-                removeStudent(input);
-                break;
-            case "C":
-                if(input.length != 1){
-                    System.out.println("Invalid Command!");
+            switch (command) {
+                case "T" -> {
+                    payTuition(st, profile);
+                    return true;
                 }
-                calculate();
-                break;
-            case "T":
-                payTuition(input);
-                break;
-            case "S":
-                setAbroadStatus(input);
-                break;
-            case "F":
-                setFinancialAid(input);
-                break;
-            case "P":
-                printRoster(1);
-                break;
-            case "PN":
-                printRoster(2);
-                break;
-            case "PT":
-                printRoster(3);
-                break;
-            default:
-                System.out.println("Command '" + input[0] + "' not supported!");
-                break;
-        }
-        return true;
-    }
-
-    /**
-     * This makes sure the input is correct, iteratively
-     * @param input the input array for the instruction
-     * @param type The type of add Instruction
-     * @return True if input is correct
-     */
-    private boolean addSanityCheck(String[] input, int type){
-        if(!tryIndex(input, NAME_INDEX))
-            return false;
-        if(!tryIndex(input, MAJOR_INDEX))
-            return false;
-        if(!checkMajor(input[2])){
-            System.out.println("'" + input[2] + "' is not a valid major.");
-            return false;
-        }
-        if(!tryIndex(input,CREDIT_INDEX))
-            return false;
-        boolean isInternational = (type == INTERNATIONAL);
-        if(!isValidCreditNum(input[3], isInternational))
-            return false;
-        switch(type){
-            case RESIDENT:
-                break;
-            case NONRESIDENT:
-                break;
-            case TRISTATE:
-                if(!tryIndex(input, STATE_INDEX))
-                    return false;
-                if(!validTristate(input[4])) {
-                    System.out.println("Not part of the tri-state area.");
-                    return false;
+                case "F" -> {
+                    setFinancialAid(st, profile);
+                    return true;
                 }
-                break;
-            case INTERNATIONAL:
-                if(!tryIndex(input, ISABROAD_INDEX))
-                    return false;
-                if(!(input[4].toUpperCase().equals("TRUE") || input[4].toUpperCase().equals("FALSE"))){
-                    System.out.println("Not a boolean.");
-                    return false;
+                case "S" -> {
+                    setAbroadStatus(profile);
+                    return true;
                 }
-                break;
+                case "R" -> {
+                    removeStudent(profile);
+                    return true;
+                }
+            }
+            int credits = validCredit(st, command.equals("AI"));
+            if(credits == INVALID_CREDIT){
+                return true;
+            }
+            switch (command) {
+                case "AR" -> addResident(profile, credits);
+                case "AN" -> addNonResident(profile, credits);
+                case "AT" -> addTriState(st, profile, credits);
+                case "AI" -> addInternational(st, profile, credits);
+            }
         }
-        return true;
-    }
-
-    /**
-     * Add a Resident student to the roster if the input is valid.
-     * @param input the input array for the instruction
-     */
-    private void addResident(String[] input){
-        Resident resident = new Resident(input[1], input[2].toUpperCase(), Integer.parseInt(input[3]));
-        addStudent(resident);
-    }
-
-    /**
-     * Add a Non-Resident student to the roster if the input is valid.
-     * @param input the input array for the instruction
-     */
-    private void addNonResident(String[] input){
-        NonResident nonresident = new NonResident(input[1], input[2].toUpperCase(), Integer.parseInt(input[3]));
-        addStudent(nonresident);
-    }
-
-    /**
-     * Add a TriState student to the roster if the input is valid.
-     * @param input the input array for the instruction
-     */
-    private void addTriState(String[] input){
-        TriState tristate = new TriState(input[1], input[2].toUpperCase(), Integer.parseInt(input[3]), input[4].toUpperCase());
-        addStudent(tristate);
-    }
-
-    /**
-     * Add a International student to the roster if the input is valid.
-     * @param input the input array for the instruction
-     */
-    private void addInternational(String[] input){
-        International international = new International(input[1], input[2].toUpperCase(), Integer.parseInt(input[3]), isAbroad(input[4]));
-        addStudent(international);
-    }
-
-    private void addStudent(Student student){
-        if(roster.add(student))
-            System.out.println("Student added.");
-        else
-            System.out.println("Student is already in the roster.");
-    }
-
-    /**
-     * Remove a student from the Roster
-     * @param input the input array for the instruction
-     */
-    private void removeStudent(String[] input) {
-        if(input.length != 3){
-            System.out.println("Student is not in the roster.");
-            return;
+        else if(command.equals("C")){
+            roster.calculate();
+            System.out.println("Calculation completed.");
         }
-        Student temp = new Student(input[1], input[2].toUpperCase(), EMPTY_NUM);
-        if(roster.remove(temp)){
-            System.out.println("Student removed from the roster.");
+        else if(command.equals("P")){
+            printRoster(PRINT);
+        }
+        else if(command.equals("PN")){
+            printRoster(PRINT_NAME);
+        }
+        else if(command.equals("PT")){
+            printRoster(PRINT_DATE);
         }
         else{
-            System.out.println("Student is not in the roster.");
+            System.out.println("Command '" + command + "' not supported!");
+        }
+        return true;
+    }
+
+    /**
+     * Checks if a profile of a student is valid
+     * @param st the string tokenizer currently before name token
+     * @return an array containing name and major, null if invalid
+     */
+    private String[] validProfile(StringTokenizer st){
+        String name;
+        String major;
+        try{
+            name = st.nextToken();
+            major = validMajor(st.nextToken());
+        }catch (NoSuchElementException e){
+            System.out.println("Missing data in command line.");
+            return null;
+        }
+
+        if(major == null){
+            return null;
+        }
+        return new String[]{name, major};
+    }
+
+    /**
+     * Checks if a major is valid
+     * @param major major to be checked
+     * @return the string of major in correct format, null if invalid
+     */
+    private String validMajor(String major){
+        String caseMajor = major.toUpperCase();
+        if(caseMajor.equals("CS") || caseMajor.equals("IT") || caseMajor.equals("BA") ||
+                caseMajor.equals("EE") || caseMajor.equals("ME")){
+            return caseMajor;
+        }
+        System.out.println("'" + major + "' is not a valid major.");
+        return null;
+    }
+
+    /**
+     * Checks if amount of credits is valid
+     * @param st the string tokenizer currently before credits token
+     * @param isInternational tracks if student is international
+     * @return amount of credits, INVALID_CREDIT ( = 0) if invalid
+     */
+    private int validCredit(StringTokenizer st, boolean isInternational){
+        int credits;
+        try{
+            credits = Integer.parseInt(st.nextToken());
+        }catch(NoSuchElementException e1){
+            System.out.println("Credit hours missing.");
+            return INVALID_CREDIT;
+        }catch (NumberFormatException e2){
+            System.out.println("Invalid credit hours.");
+            return INVALID_CREDIT;
+        }
+        if(credits < 0){
+            System.out.println("Credit hours cannot be negative.");
+            return INVALID_CREDIT;
+        }
+        if(credits > Student.MAX_CREDITS){
+            System.out.println("Credit hours exceed the maximum 24.");
+            return INVALID_CREDIT;
+        }
+        if(credits < Student.MIN_CREDITS){
+            System.out.println("Minimum credit hours is 3.");
+            return INVALID_CREDIT;
+        }
+        if(credits < Student.MIN_FULL_TIME && isInternational){
+            System.out.println("International students must enroll at least 12 credits.");
+            return INVALID_CREDIT;
+        }
+        return credits;
+    }
+
+    /**
+     * Adds a Resident to roster if student does not exist already
+     * @param profile profile of student
+     * @param credits amount of credits
+     */
+    private void addResident(String[] profile, int credits){
+        Resident res = new Resident(profile[NAME_INDEX], profile[MAJOR_INDEX], credits);
+        boolean added = roster.add(res);
+        if(added){
+            System.out.println("Student added.");
+        }
+        else{
+            System.out.println("Student is already in the roster.");
         }
 
     }
 
     /**
-     * Calculates total student Tuition based on roster
+     * Adds a NonResident to roster if student does not exist already
+     * @param profile profile of student
+     * @param credits amount of credits
      */
-    private void calculate() {
-        roster.calculate();
-        System.out.println("Calculation completed.");
-    }
-
-    /**
-     * Pay the tuition a certain amount for a certain student
-     * @param input the input array for the instruction
-     */
-    private void payTuition(String[] input) {
-        if(input.length <= 5){
-            if(input.length == 3){
-                System.out.println("Payment amount missing.");
-                return;
-            }
-            if(input.length < 3){
-                System.out.println("Invalid Command!");
-            }
-            Date date = null;
-            if(input.length == 5){
-                date = new Date(input[4]);
-            }
-            String name = input[1], major = input[2].toUpperCase();
-            Double paymentAmount = Double.parseDouble(input[3]);
-            Student temp = new Student(name, major);
-            Student found = roster.getAStudent(temp);
-            if(found == null) {
-                System.out.println("Student not in the roster.");
-                return;
-            }
-            if(paymentAmount > found.getTuition()){
-                System.out.println("Amount is greater than amount due.");
-                return;
-            }
-            if(paymentAmount <= ZERO){
-                System.out.println("Invalid amount.");
-                return;
-            }
-            if(!date.isValid()){
-                System.out.println("Payment date invalid.");
-                return;
-            }
-            found.makePayment(paymentAmount, date);
-            System.out.println("Payment applied.");
+    private void addNonResident(String[] profile, int credits){
+        NonResident nonRes = new NonResident(profile[NAME_INDEX], profile[MAJOR_INDEX], credits);
+        boolean added = roster.add(nonRes);
+        if(added){
+            System.out.println("Student added.");
+        }
+        else{
+            System.out.println("Student is already in the roster.");
         }
     }
 
     /**
-     * Sets the study abroad status based on the input
-     * @param input the input array for the instruction
+     * Adds an International to roster if student does not exist already
+     * @param st the string tokenizer currently before abroad boolean token
+     * @param profile profile of student
+     * @param credits amount of credits
      */
-    private void setAbroadStatus(String[] input) {
-        if(input.length != 4){
-            System.out.println("Invalid command!");
+    private void addInternational(StringTokenizer st, String[] profile, int credits){
+        boolean abroad = st.nextToken().equalsIgnoreCase("TRUE");
+        International intern = new International(profile[NAME_INDEX], profile[MAJOR_INDEX], credits, abroad);
+        boolean added = roster.add(intern);
+        if(added){
+            System.out.println("Student added.");
+        }
+        else{
+            System.out.println("Student is already in the roster.");
+        }
+    }
+
+    /**
+     * Adds a TriState to roster if student does not exist already
+     * @param st the string tokenizer currently before state token
+     * @param profile profile of student
+     * @param credits amount of credits
+     */
+    private void addTriState(StringTokenizer st, String[] profile, int credits){
+        String state;
+        try {
+            state = validTriState(st.nextToken());
+        }catch (NoSuchElementException e){
+            System.out.println("Missing data in command line.");
             return;
         }
-        String name = input[1], major = input[2].toUpperCase();
-        Student temp = new Student(name, major);
+        if(state == null){
+            return;
+        }
+        TriState tri = new TriState(profile[NAME_INDEX], profile[MAJOR_INDEX], credits, state);
+        boolean added = roster.add(tri);
+        if(added){
+            System.out.println("Student added.");
+        }
+        else{
+            System.out.println("Student is already in the roster.");
+        }
+    }
+
+    /**
+     * Checks if a state is a valid tri-state
+     * @param state the state to be checked
+     * @return the string of tri-state in correct format, null if invalid
+     */
+    private String validTriState(String state){
+        state = state.toUpperCase();
+        if(state.equals("NY") || state.equals("CT")){
+            return state;
+        }
+        System.out.println("Not part of the tri-state area.");
+        return null;
+    }
+
+    /**
+     * Make a payment towards tuition for a student if payment amount exists and is valid
+     * @param st the string tokenizer currently before payment amount token
+     * @param profile profile of target student
+     */
+    private void payTuition(StringTokenizer st, String[] profile){
+        double payment;
+        try{
+            payment = Double.parseDouble(st.nextToken());
+        }catch (NoSuchElementException e){
+            System.out.println("Payment amount missing.");
+            return;
+        }
+
+        Student temp = new Student(profile[NAME_INDEX], profile[MAJOR_INDEX]);
         Student found = roster.getAStudent(temp);
+
         if(found == null){
-            System.out.println("Couldn't find the international student.");
+            System.out.println("Student not in the roster.");
             return;
         }
-        ((International) found).setStudyingAbroad();
-        System.out.println("Tuition updated.");
+        if(payment > found.getTuition()){
+            System.out.println("Amount is greater than amount due.");
+            return;
+        }
+        if(payment <= INVALID_PAY){
+            System.out.println("Invalid amount.");
+            return;
+        }
 
+        Date date = new Date(st.nextToken());
+
+        if(!date.isValid()){
+            System.out.println("Payment date invalid.");
+            return;
+        }
+        found.makePayment(payment, date);
+        System.out.println("Payment applied.");
     }
 
     /**
-     * Sets the financial aid based on the input
-     * @param input the input array for the instruction
+     * Give a resident student financial aid if are full-time and never received aid yet
+     * @param st the string tokenizer currently before financial aid token
+     * @param profile profile of target student
      */
-    private void setFinancialAid(String[] input) {
-        if(input.length != 4){
-            if(input.length == 3){
-                System.out.println("Missing the amount.");
-                return;
-            }
-            System.out.println("Invalid command!");
+    private void setFinancialAid(StringTokenizer st, String[] profile){
+        double aid;
+        try {
+            aid = Double.parseDouble(st.nextToken());
+        }catch (NoSuchElementException e){
+            System.out.println("Missing the amount.");
             return;
         }
-        String name = input[1], major = input[2];
-        Double financialAid = Double.parseDouble(input[3]);
-        Student temp = new Student(name, major, ZERO);
+        Student temp = new Student(profile[NAME_INDEX], profile[MAJOR_INDEX]);
         Student found = roster.getAStudent(temp);
         if(found == null){
             System.out.println("Student not in the roster.");
             return;
         }
-        if(!isValidFinancialAid(financialAid)){
+        if(!isValidFinancialAid(aid)){
             return;
         }
-        if(isPartTime(found)){
+        if(found.getCredits() < Student.MIN_FULL_TIME){
+            System.out.println("Parttime student doesn't qualify for the award.");
             return;
         }
         if(!(found instanceof Resident)){
             System.out.println("Not a resident student.");
             return;
         }
-        if(!((Resident) found).giveFinancialAid(financialAid)){
+        if(!((Resident) found).giveFinancialAid(aid)){
             System.out.println("Awarded once already.");
             return;
         }
@@ -350,71 +376,9 @@ public class TuitionManager {
     }
 
     /**
-     * Prints the roster given the type of print order
-     * @param type 1 = no order, 2 = by Names, 3 = those who've paid, ordered by payment date
-     */
-    private void printRoster(int type) {
-        if(roster.getSize() == Roster.EMPTY){
-            System.out.println("Student roster is empty!");
-            return;
-        }
-        switch(type){
-            case 1:
-                System.out.println("* list of students in the roster **");
-                roster.print();
-                break;
-            case 2:
-                System.out.println("* list of students ordered by name **");
-                roster.printByName();
-                break;
-            case 3:
-                System.out.println("* list of students made payments ordered by payment date **");
-                roster.printByPaymentDate();
-                break;
-            default:
-                break;
-        }
-        System.out.println("* end of roster **");
-    }
-
-    /**
-     * Checks if it's a valid Credit amount based on project details
-     * @param creditString string contains the credit amount to be checked
-     * @param isInternational a boolean that denotes if international rule is applied
-     * @return
-     */
-    private boolean isValidCreditNum(String creditString, boolean isInternational){
-        int credit = 0;
-        try {
-            credit = Integer.parseInt(creditString);
-        }
-        catch (Exception e){
-            System.out.println("Invalid credit hours.");
-            return false;
-        };
-        if(credit > Student.MAX_CREDITS){
-            System.out.println("Credit hours exceed the maximum 24.");
-            return false;
-        }
-        else if (credit < 0) {
-            System.out.println("Credit hours cannot be negative.");
-            return false;
-        }
-        else if(credit < Student.MIN_CREDITS){
-            System.out.println("Minimum credit hours is 3.");
-            return false;
-        }
-        else if(credit < Student.MIN_FULL_TIME && isInternational){
-            System.out.println("International students must enroll at least 12 credits.");
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Checks if the amount of financial aid is valid
-     * @param financialAid the amount of financial aid we're checking
-     * @return true if it's a valid amount
+     * Checks if financial aid amount is valid
+     * @param financialAid financial aid amount
+     * @return true if valid, false otherwise
      */
     private boolean isValidFinancialAid(double financialAid){
         if(financialAid <= 0 || financialAid > Resident.MAX_AID){
@@ -425,73 +389,61 @@ public class TuitionManager {
     }
 
     /**
-     * Checks if the student is Part-time
-     * @param student the student object we are checking
-     * @return true if student is Part-time
+     * Sets an International student to be studying abroad if they exist in roster
+     * @param profile profile of target student
      */
-    private boolean isPartTime(Student student){
-        if(student.getCredits() < Student.MIN_FULL_TIME){
-            System.out.println("Parttime student doesn't qualify for the award.");
-            return true;
+    private void setAbroadStatus(String[] profile){
+        Student temp = new Student(profile[NAME_INDEX], profile[MAJOR_INDEX]);
+        Student found = roster.getAStudent(temp);
+        if(found == null){
+            System.out.println("Couldn't find the international student.");
+            return;
         }
-        return false;
+        ((International) found).setStudyingAbroad();
+        System.out.println("Tuition updated.");
     }
 
+    /**
+     * Removes a student from the roster if they exist
+     * @param profile profile of target student
+     */
+    private void removeStudent(String[] profile){
+        Student temp = new Student(profile[NAME_INDEX], profile[MAJOR_INDEX]);
+        if(roster.remove(temp)){
+            System.out.println("Student removed from the roster.");
+        }
+        else{
+            System.out.println("Student is not in the roster.");
+        }
+    }
 
     /**
-     * Try catch based on current index
-     * @param input the input array for the instruction
-     * @param index index that we are checking
-     * @return true if not out of bounds
+     * Prints the roster given the type of order
+     * @param type the type of printing wanted
      */
-    private boolean tryIndex(String[] input, int index){
-        try{
-            String test = input[index];
+    private void printRoster(int type){
+        if(roster.getSize() == Roster.EMPTY){
+            System.out.println("Student roster is empty!");
+            return;
         }
-        catch (ArrayIndexOutOfBoundsException e){
-            if(index == NAME_INDEX || index == MAJOR_INDEX || index == WILDCARD_INDEX){
-                System.out.println("Missing data in command line.");
+        switch (type) {
+            case PRINT -> {
+                System.out.println("* list of students in the roster **");
+                roster.print();
             }
-            else if(index == CREDIT_INDEX){
-                System.out.println("Credit hours missing.");
+            case PRINT_NAME -> {
+                System.out.println("* list of students ordered by name **");
+                roster.printByName();
             }
-            return false;
+            case PRINT_DATE -> {
+                System.out.println("* list of students made payments ordered by payment date **");
+                roster.printByPaymentDate();
+            }
+            default -> {
+            }
         }
-        return true;
+        System.out.println("* end of roster **");
     }
 
-    /**
-     * Checks if Major is a possible major
-     * @param major the candidate string for a major
-     * @return true if this is a possible major
-     */
-    private boolean checkMajor(String major){
-        if(major.toUpperCase().equals("CS") || major.toUpperCase().equals("IT") || major.toUpperCase().equals("BA") ||
-                major.toUpperCase().equals("EE") || major.toUpperCase().equals("ME"))
-            return true;
-        return false;
-    }
 
-    /**
-     * Checks if Tri-State is a possible major
-     * @param state the candidate string for a state
-     * @return true if this is a possible Tri-state
-     */
-    private boolean validTristate(String state){
-        if(state.toUpperCase().equals("NY") || state.toUpperCase().equals("CT"))
-            return true;
-        return false;
-    }
-
-    /**
-     * Returns boolean based on string value
-     * @param Abroad the string value of isAbroad
-     * @return true if "TRUE"
-     */
-    private boolean isAbroad(String Abroad){
-        if(Abroad.toUpperCase().equals("TRUE")){
-            return true;
-        }
-        return false;
-    }
 }
