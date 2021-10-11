@@ -28,20 +28,26 @@ import java.util.StringTokenizer;
 public class TuitionManager {
     /** Empty number for all use-cases*/
     private static final int EMPTY_NUM = 0;
-    /** Amount of elements for a Resident Command*/
-    private static final int RESIDENT_ADD_COMMAND_AMOUNT = 4;
-    /** Amount of elements for a Non-Resident Command*/
-    private static final int NONRESIDENT_ADD_COMMAND_AMOUNT = 4;
-    /** Amount of elements for a TriState Command*/
-    private static final int TRISTATE_ADD_COMMAND_AMOUNT = 5;
-    /** Amount of elements for a International Command*/
-    private static final int INTERNATIONAL_ADD_COMMAND_AMOUNT = 5;
-    /** Resident Credit position in command*/
-    private static final int RESIDENT_CREDIT_CHECKNUM = 3;
-    /** Nonresident Credit position in command*/
-    private static final int NONRESIDENT_CREDIT_CHECKNUM = 3;
-    /** International Credit position in command*/
-    private static final int INTERNATIONAL_CREDIT_CHECKNUM = 3;
+    /** Resident Typenum*/
+    private static final int RESIDENT = 1;
+    /** Non-Resident Typenum*/
+    private static final int NONRESIDENT = 2;
+    /** Tri-State Typenum*/
+    private static final int TRISTATE = 3;
+    /** International Typenum*/
+    private static final int INTERNATIONAL = 4;
+    /** Index location of Name*/
+    private static final int NAME_INDEX = 1;
+    /** Index location of MAJOR*/
+    private static final int MAJOR_INDEX = 2;
+    /** Index location of CREDIT*/
+    private static final int CREDIT_INDEX = 3;
+    /** Index location of STATE*/
+    private static final int STATE_INDEX = 4;
+    /** Index location of ISABROAD*/
+    private static final int ISABROAD_INDEX = 4;
+    /** Index location of WILDCARD*/
+    private static final int WILDCARD_INDEX = 4;
     /** Universal Zero Constant*/
     private static final int ZERO = 0;
     /** The maximum amount of aid a student can receive */
@@ -80,15 +86,19 @@ public class TuitionManager {
                 System.out.println("Tuition Manager terminated.");
                 return false;
             case "AR":
+                if(!addSanityCheck(input, RESIDENT)) break;
                 addResident(input);
                 break;
             case "AN":
+                if(!addSanityCheck(input, NONRESIDENT)) break;
                 addNonResident(input);
                 break;
             case "AT":
+                if(!addSanityCheck(input, TRISTATE)) break;
                 addTriState(input);
                 break;
             case "AI":
+                if(!addSanityCheck(input, INTERNATIONAL)) break;
                 addInternational(input);
                 break;
             case "R":
@@ -126,23 +136,57 @@ public class TuitionManager {
     }
 
     /**
+     * This makes sure the input is correct, iteratively
+     * @param input the input array for the instruction
+     * @param type The type of add Instruction
+     * @return True if input is correct
+     */
+    private boolean addSanityCheck(String[] input, int type){
+        if(!tryIndex(input, NAME_INDEX))
+            return false;
+        if(!tryIndex(input, MAJOR_INDEX))
+            return false;
+        if(!checkMajor(input[2])){
+            System.out.println("'" + input[2] + "' is not a valid major.");
+            return false;
+        }
+        if(!tryIndex(input,CREDIT_INDEX))
+            return false;
+        boolean isInternational = (type == INTERNATIONAL);
+        if(!isValidCreditNum(input[3], isInternational))
+            return false;
+        switch(type){
+            case RESIDENT:
+                break;
+            case NONRESIDENT:
+                break;
+            case TRISTATE:
+                if(!tryIndex(input, STATE_INDEX))
+                    return false;
+                if(!validTristate(input[4])) {
+                    System.out.println("Not part of the tri-state area.");
+                    return false;
+                }
+                break;
+            case INTERNATIONAL:
+                if(!tryIndex(input, ISABROAD_INDEX))
+                    return false;
+                if(!(input[4].toUpperCase().equals("TRUE") || input[4].toUpperCase().equals("FALSE"))){
+                    System.out.println("Not a boolean.");
+                    return false;
+                }
+                break;
+        }
+        return true;
+    }
+
+    /**
      * Add a Resident student to the roster if the input is valid.
      * @param input the input array for the instruction
      */
     private void addResident(String[] input){
-        if(input.length == RESIDENT_CREDIT_CHECKNUM){
-            System.out.println("Credit hours missing.");
-            return;
-        }
-        if(input.length != RESIDENT_ADD_COMMAND_AMOUNT){
-            System.out.println("Missing data in command line.");
-            return;
-        }
-        if(!isValidCreditNum(input[3], false))
-            return;
-        Resident resident = new Resident(input[1], input[2], Integer.parseInt(input[3]));
-        roster.add(resident);
-        System.out.println("Student Added.");
+        Resident resident = new Resident(input[1], input[2].toUpperCase(), Integer.parseInt(input[3]));
+        addStudent(resident);
     }
 
     /**
@@ -150,19 +194,8 @@ public class TuitionManager {
      * @param input the input array for the instruction
      */
     private void addNonResident(String[] input){
-        if(input.length == NONRESIDENT_CREDIT_CHECKNUM){
-            System.out.println("Credit hours missing.");
-            return;
-        }
-        if(input.length != NONRESIDENT_ADD_COMMAND_AMOUNT){
-            System.out.println("Missing data in command line.");
-            return;
-        }
-        if(!isValidCreditNum(input[3], false))
-            return;
-        NonResident nonresident = new NonResident(input[1], input[2], Integer.parseInt(input[3]));
-        roster.add(nonresident);
-        System.out.println("Student Added.");
+        NonResident nonresident = new NonResident(input[1], input[2].toUpperCase(), Integer.parseInt(input[3]));
+        addStudent(nonresident);
     }
 
     /**
@@ -170,15 +203,8 @@ public class TuitionManager {
      * @param input the input array for the instruction
      */
     private void addTriState(String[] input){
-        if(input.length != TRISTATE_ADD_COMMAND_AMOUNT){
-            System.out.println("Missing data in command line.");
-            return;
-        }
-        if(!isValidCreditNum(input[3], false))
-            return;
-        TriState tristate = new TriState(input[1], input[2], Integer.parseInt(input[3]), input[4]);
-        roster.add(tristate);
-        System.out.println("Student Added.");
+        TriState tristate = new TriState(input[1], input[2].toUpperCase(), Integer.parseInt(input[3]), input[4].toUpperCase());
+        addStudent(tristate);
     }
 
     /**
@@ -186,20 +212,15 @@ public class TuitionManager {
      * @param input the input array for the instruction
      */
     private void addInternational(String[] input){
-        if(input.length == INTERNATIONAL_CREDIT_CHECKNUM){
-            System.out.println("Credit hours missing.");
-            return;
-        }
-        if(input.length != INTERNATIONAL_ADD_COMMAND_AMOUNT || !(input[4].toUpperCase().equals("TRUE") || input[4].toUpperCase().equals("FALSE"))){
-            System.out.println("Missing data in command line.");
-            return;
-        }
-        if(!isValidCreditNum(input[3], true))
-            return;
-        boolean abroad = "TRUE".equals(input[4].toUpperCase());
-        International international = new International(input[1], input[2], Integer.parseInt(input[3]), abroad);
-        roster.add(international);
-        System.out.println("Student Added.");
+        International international = new International(input[1], input[2].toUpperCase(), Integer.parseInt(input[3]), isAbroad(input[4]));
+        addStudent(international);
+    }
+
+    private void addStudent(Student student){
+        if(roster.add(student))
+            System.out.println("Student Added.");
+        else
+            System.out.println("Student is already in the roster.");
     }
 
     /**
@@ -211,7 +232,7 @@ public class TuitionManager {
             System.out.println("Student is not in the roster");
             return;
         }
-        Student temp = new Student(input[1], input[2], EMPTY_NUM);
+        Student temp = new Student(input[1], input[2].toUpperCase(), EMPTY_NUM);
         if(roster.remove(temp)){
             System.out.println("Student removed from the roster.");
         }
@@ -246,7 +267,7 @@ public class TuitionManager {
             if(input.length == 5){
                 date = new Date(input[4]);
             }
-            String name = input[1], major = input[2];
+            String name = input[1], major = input[2].toUpperCase();
             Double paymentAmount = Double.parseDouble(input[3]);
             Student temp = new Student(name, major);
             Student found = roster.getAStudent(temp);
@@ -405,6 +426,64 @@ public class TuitionManager {
     private boolean isPartTime(Student student){
         if(student.getCredits() < Student.MIN_FULL_TIME){
             System.out.println("Parttime student doesn't qualify for the award.");
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Try catch based on current index
+     * @param input the input array for the instruction
+     * @param index index that we are checking
+     * @return true if not out of bounds
+     */
+    private boolean tryIndex(String[] input, int index){
+        try{
+            String test = input[index];
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            if(index == NAME_INDEX || index == MAJOR_INDEX || index == WILDCARD_INDEX){
+                System.out.println("Missing data in command line.");
+            }
+            else if(index == CREDIT_INDEX){
+                System.out.println("Credit hours missing.");
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if Major is a possible major
+     * @param major the candidate string for a major
+     * @return true if this is a possible major
+     */
+    private boolean checkMajor(String major){
+        if(major.toUpperCase().equals("CS") || major.toUpperCase().equals("IT") || major.toUpperCase().equals("BA") ||
+                major.toUpperCase().equals("EE") || major.toUpperCase().equals("ME"))
+            return true;
+        return false;
+    }
+
+    /**
+     * Checks if Tri-State is a possible major
+     * @param state the candidate string for a state
+     * @return true if this is a possible Tri-state
+     */
+    private boolean validTristate(String state){
+        if(state.toUpperCase().equals("NY") || state.toUpperCase().equals("CT"))
+            return true;
+        return false;
+    }
+
+    /**
+     * Returns boolean based on string value
+     * @param Abroad the string value of isAbroad
+     * @return true if "TRUE"
+     */
+    private boolean isAbroad(String Abroad){
+        if(Abroad.toUpperCase().equals("TRUE")){
             return true;
         }
         return false;
