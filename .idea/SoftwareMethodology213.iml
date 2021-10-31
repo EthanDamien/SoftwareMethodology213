@@ -61,5 +61,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="javafx17" level="project" />
   </component>
 </module>
