@@ -19,8 +19,8 @@
         android:id="@+id/DeluxeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="109dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="128dp"
         android:text="Deluxe Pizza"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,21 +29,20 @@
         android:id="@+id/pepperoni_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginBottom="480dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="141dp"
+        android:layout_marginBottom="376dp"
         android:text="Pepperoni Pizza"
         app:layout_constraintBottom_toTopOf="@+id/button_first"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DeluxeButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/DeluxeButton" />
 
     <TextView
         android:id="@+id/hawaiian_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="152dp"
         android:text="Hawaiiaan Pizza"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pepperoni_Button" />
@@ -53,11 +52,53 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="54dp"
-        android:layout_marginBottom="203dp"
+        android:layout_marginBottom="32dp"
         android:text="current_Order"
         app:layout_constraintBottom_toTopOf="@+id/button_first"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/pepperoni_Button" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/pepperoni_Button"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="247dp"
+        android:layout_height="171dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="41dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="DeluxePizzaPicture"
+        android:scaleType="fitCenter"
+        android:src="@drawable/deluxe_pizza"
+        app:layout_constraintStart_toEndOf="@+id/DeluxeButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="247dp"
+        android:layout_height="171dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="PepperoniPizzaPicture"
+        android:scaleType="fitCenter"
+        android:src="@drawable/pepperoni_pizza"
+        app:layout_constraintStart_toEndOf="@+id/pepperoni_Button"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="247dp"
+        android:layout_height="171dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="PepperoniPizzaPicture"
+        android:scaleType="fitCenter"
+        android:src="@drawable/hawaiian_pizza"
+        app:layout_constraintStart_toEndOf="@+id/hawaiian_button"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
