@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">PizzaApp2</string>
+    <string name="app_name">Juicey Pizza Main Menu</string>
+    <string name="add_pizza_name">Add Pizza Activity</string>
     <string name="action_settings">Settings</string>
+    <string name="price">Price</string>
+    <string name="size">Size</string>
+    <string name="order_string">Order Up!</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">Juicey Pizza Create Pizza</string>
     <string name="second_fragment_label">Second Fragment</string>

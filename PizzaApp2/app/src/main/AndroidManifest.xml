@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PizzaApp2">
         <activity
+            android:name=".AddPizzaActivity"
+            android:label="@string/add_pizza_name"
+            android:parentActivityName=".MainActivity"
+            >
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
